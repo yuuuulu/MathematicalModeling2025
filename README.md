@@ -6,8 +6,15 @@ MMC competition
 
 ### Baysian+Time series
 
+NegativeBinomial
+inversegamma
+
 
 ## Q2
 
 
 ### Penalized regression model
+
+
+
+## Q3
