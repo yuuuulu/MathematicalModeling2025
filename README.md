@@ -15,6 +15,10 @@ inversegamma
 
 ### Penalized regression model
 
+### linear regression for e explanation
+
+### K-means
+
 
 
 ## Q3
