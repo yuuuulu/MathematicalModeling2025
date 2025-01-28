@@ -1,0 +1,723 @@
+---
+title: "The Riddle of Olympic Medal Table: Mathematical Model Prediction and Multi-factor Analysis"
+format: html
+editor: visual
+---
+
+## Abstract
+
+The Summer Olympics are held every four years. The Olympic medal tally and its related influencing factors are a focus of general concern. Therefore, we set up a mathematical model to analyze and forecast the relevant data of the Olympic Games.
+
+Firstly, we build a \textbf{Hierarchical Bayesian} combinatorial \textbf{ARMA model} to predict the 2028 Olympic medal. This model comprehensively analyzes the influence of different factors and time series on the Olympic medal table. Therefore, we predict medal distribution that in 2028. Then, we combined the \textbf{Dirichlet Distribution model} to calculate the number of gold medals in the predicted medals and evaluated the analysis through the posterior distribution. The \textbf{MAE result is 3.1592}, indicating that the model has good prediction performance.
+
+Secondly, we used the data to divide countries into two clusters (potential and non-potential) based on historical medal count and whether they have won medals. Then, we use \textbf{K-means} clustering method for analysis and prediction. The final prediction is that \textbf{seven countries} will win their first medals, and then we quantify the probability distribution and predict their odds.
+
+Thirdly, we set up a \textbf{Multiple Linear Regression(MLR) model} to analyze and explore the impact and relationship between events and organizers on the number of medals. The model training results show that the event has a significant impact on the number of medals, and the \textbf{coefficient reaches 32.8129}. The host country also had a significant \textbf{positive impact} on the number of medals, with a \textbf{coefficient of 47.8638}. In addition, we established Lasso regression model to explore the most important sports in different countries, and the evaluation error of the model was small, indicating that the model was highly interpretable.
+
+Fourthly, we still use \textbf{MLR model} to analyze the influence of coach factor is used to explore the effect of "great coach". The model results show that the model's fitting degree \textbf{$R^2$ is above 0.7}. In addition, the model indicates that the great coach has a greater contribution to the number of medals. Then, we use \textbf{Simulated Annealing(SA)} algorithm to solve a model, which employs a \textbf{dynamic penalty function} to control variables, showing the United States, Japan, Belarus three countries to hire the program and its possible impact on the number of medals in the next Olympic Games.
+
+Finally, we explored three insights from our model and explain their reference value to country Olympic Committees.
+
+-   Keywords: Hierarchical Bayesian, Dirichlet Distribution, K-Means++, MLR, Penalized Lasso Regression, Dynamic Penalized Function, SA
+
+## Problem Background
+
+As one of the most influential comprehensive sports events in the world, the Summer Olympic Games will be held every four years, attracting the attention of people all over the world. Olympic medals are not only a platform for athletes to show themselves, challenge themselves and pursue excellence, but also reflect a country's honor, sports strength and Economic strength and many other aspects. By modeling and forecasting the distribution of Olympic medals, it can better optimize the allocation of sports resources, stimulate the athletes' competitive state and promote the development of science and technology sports.
+
+## Restatement of the Problem
+
+To achieve these goals, we need to analyze the provided data and answer the following questions:
+
+-   Develop a prediction model to forecast the 2028 Los Angeles Summer Olympics medal table and provide the medal distribution of countries compared to the 2024 Summer Olympics.
+
+-   Build another prediction model to predict how many countries will win their first medal at the next Olympic Games. Model evaluation is also required.
+
+-   Establish a model to analyze the relationship between the number and type of events in the Olympic Games and the number of medals won by each country, the important sports of different countries and the influence of the selection of home country events on the number of medals won.
+
+-   Select three sports in which the country could benefit from a great coach and analyze the potential impact of the "great coach" effect on their country's Olympic performance. Though the data of coach information here is not offered.
+
+-   Explore the original insights of the model and explain its help to the Olympic Committee.
+
+(Our thinking: The total number of medals is only relevant to time factors that reflected in our ARMA model, the ability of a country in each Olympics programs reflected only by the percentage of the number of medals in this program of this country / the total number of medals in this program, the chance reflected only by the percentage of a certain program / the total number of this program this year, the effect of being a host, the coach effect and other effects that needs to be observed but it is difficult without any other information.)
+
+![](images/clipboard-2083949839.png)
+
+## ![](images/clipboard-184356056.png)Assumptions
+
+-   All countries participating in the Paris 2024 Olympic Games will normally participate in the Los Angeles 2028 Olympic Games without withdrawing or refusing to participate for other reasons.
+
+$t$ & Time series effect\
+
+$\beta_0$ & Intercept\
+
+$\beta_1$ & Host effect coefficient\
+$\gamma_j$ & The impact coefficient of each project\
+$\lambda_i$ & the total medal count\
+$\log(\lambda_i)$ & The logarithm of the expected number of medals\
+\$\text{ProjectAbility}x\_{ij} \$ & $\text{AthleteMedalRatio}_{ij} \times \text{ProjectPercent}_{j}$\
+$\alpha_i$ & Time trend for each country (AR item).\
+$x_1$ & the host country\
+$x_j$ & the proportion of medals in an event\
+$z_j$ & item event ratio\
+$x_j \cdot z_j$ & Interaction between medal ratio and event ratio\
+$y_t$& quantified medal count in $t$year\
+$\beta_0$ & the intercept term of the model\
+$\epsilon_t$ & error term\
+
+$R^2$ & the coefficient of determination\
+MAE & the Mean Absolute Error\
+
+## Hierarchical Bayesian Composite Model
+
+We first estimate the total number of gold medals, and then we model with negative binomial distribution, including OLS estimate $\lambda$ and Bayes formula +MCMC estimate $\phi$. After that, we use the Dirichlet distribution to estimate the gold, silver and copper ratio, and finally multiply the estimated total number of gold medals by the ratio to get the medal distribution.
+
+-   Using OLS and ARMA to estimate $\lambda_i$
+
+Firstly, we use OLS to estimate $\lambda_i$. Instead of selecting $\lambda_i$ directly, we use $\log \left(\lambda_i\right)$. This is because we consider that logarithms compress the discreteness of the existing data, bringing it closer to a normal distribution. Besides, logarithmic transformation can better stabilize the variance, thereby improving the stability of the regression model and enhancing its prediction performance. The update equations of Hierarchical Bayesian are as follows: $$
+\log \left(\lambda_i\right)=\beta_0+\beta_1 \cdot \operatorname{Host}_i+\sum_{j=1}^M \gamma_j \cdot \text { ProjectAbility }{ }_{i j}+\alpha_i \cdot t+\epsilon_i
+$$
+
+Where: $\alpha_i \cdot t+\epsilon_i \sim \mathcal{N}\left(0, \tau^2\right)$ denotes random error, same as in the ordinary regression residual term. Secondly, we further build time series model(AR and MA) to have a better estimate of the residual term $\epsilon_i$ by adding time-related information. 1. Autoregressive (AR) model:
+
+Suppose that the number of medals won by the country in this Olympic Games depends on its performance in the previous Olympic Games: $$
+y_{i, t}=\alpha_i \cdot y_{i, t-1}+\epsilon_{i t}
+$$
+
+Where $\alpha_i$ is the autoregressive coefficient. 2. Moving Average (MA) model:
+
+Suppose that the medal tally of the past few Olympic Games has an effect on the performance of this Olympic Games: $$
+y_{i, t}=\frac{1}{3} \sum_{k=t-3}^{t-1} y_{i, k}+\epsilon_{i t}
+$$ Team \# 2509384 Page 9 of 26 3. Combined model of Autoregression and Moving Average:
+
+The combination of autoregressive and moving average can be used to smooth out fluctuations in medal counts and capture long-term time trends in medal counts. The equation of ARMA model\[2\] used to describe the error term $\epsilon_t$ is as follows: $$
+\epsilon_t=\phi_1 \epsilon_{t-1}+\phi_2 \epsilon_{t-2}+\cdots+\phi_p \epsilon_{t-p}+\theta_1 \eta_{t-1}+\theta_2 \eta_{t-2}+\cdots+\theta_q \eta_{t-q}
+$$
+
+By substituting the error part $\left(\epsilon_t\right)$ of the ARMA model into the multi-level Bayesian model, we get the synthesized formula as follows: $$
+\begin{aligned}
+\log \left(\lambda_i\right)= & \beta_0+\beta_1 \cdot \text { Host }_i+\sum_{j=1}^M \gamma_j \cdot \text { ProjectAbility }_{i j}+\alpha_i t+\left(\phi_1 \epsilon_{t-1}+\phi_2 \epsilon_{t-2}+\phi_3 \epsilon_{t-3}+\cdots\right. \\
+& \left.+\phi_p \epsilon_{t-p}+\theta_1 \eta_{t-1}+\theta_2 \eta_{t-2}+\cdots+\theta_q \eta_{t-q}\right)
+\end{aligned}
+$$ - Using Hierarchical Bayesian and MCMC to estimate $\phi$
+
+According to Bayes' theorem, we have: $$
+P(\phi \mid Y) \sim P(Y \mid \phi) \cdot P(\phi)
+$$
+
+Where: - $P(\phi \mid Y)$ is a posterior distribution. - $P(Y \mid \phi)$ is the likelihood function. - $P(\phi)$ is the prior distribution.
+
+In addition, we assume that $\phi$ follows the inverse gamma distribution\[3\]. $$
+\phi \sim \operatorname{InverseGamma}(\alpha, \beta)
+$$
+
+The probability density function of the inverse gamma distribution is: $$
+p\left(\phi^2\right)=\frac{\beta^\alpha}{\Gamma(\alpha)} \cdot\left(\phi^2\right)^{-(\alpha+1)} \cdot \exp \left(-\frac{\beta}{\phi^2}\right)
+$$
+
+Then, we use the Metropolis-Hastings algorithm for sampling. The basic idea of the Metropolis-Hastings algorithm is to sample from a complex posterior distribution by constructing a candidate distribution. Its formula for calculating the acceptance rate $\alpha$ for the given current sample $\phi_{\text {old }}^2$ and candidate sample $\phi_{\text {new }}^2$ is: $$
+\alpha=\min \left(1, \frac{p\left(y \mid \phi_{\text {new }}^2\right) \cdot p\left(\phi_{\text {new }}^2\right)}{p\left(y \mid \phi_{\text {old }}^2\right) \cdot p\left(\phi_{\text {old }}^2\right)}\right)
+$$
+
+Where, $p\left(y \mid \phi^2\right)$ denotes the likelihood function. According to the calculation, we get a sample acceptance of $30 \%$.
+
+### ? Here we only use Year but not other information in the estimate in log$\lambda$ but in the MCM I just say it also adds all sports-related information...Maybe it is not suitable since we do not know future exact information about sport-related information. OMG. Also, time-series already gives us much information and if I add much more variables, maybe it will overfitting???
+
+BUt this model is also not very good
+
+```{r}
+# Install and load necessary libraries
+library(rstan)
+library(forecast)
+library(dplyr)
+library(bayesplot)
+
+# Prepare your dataset (assuming 'data' is your dataframe)
+data <- read.csv("/Users/luyu/Desktop/完美数据.csv")
+
+# Filter out data for CHN (China) only
+chn_data <- subset(data, NOC == "CHN")
+
+# 1. Estimate log(lambda) using OLS
+chn_data$log_total <- log(chn_data$Total)
+
+# Fit OLS model for log(lambda)
+ols_model <- lm(log_total ~ Year, data = chn_data)
+
+# Extract the fitted values and residuals
+chn_data$fitted_log_lambda <- fitted(ols_model)
+chn_data$residuals <- residuals(ols_model)
+
+# 2. Estimate ARMA model for the residuals
+arma_model <- auto.arima(chn_data$residuals)
+
+# Calculate the residuals from the ARMA model
+chn_data$residuals_arma <- residuals(arma_model)
+
+# 3. Estimate lambda for Negative Binomial
+lambda_estimates <- exp(chn_data$fitted_log_lambda + chn_data$residuals_arma)
+
+# Prepare data for Stan (Negative Binomial model)
+stan_data <- list(
+  N = nrow(chn_data),          # Number of data points
+  y = chn_data$Total,          # Total medals (observed data)
+  lambda = lambda_estimates    # Estimated lambda values
+)
+
+# Stan model code for Negative Binomial
+stan_code <- "
+data {
+  int<lower=0> N;
+  int<lower=0> y[N];
+  real<lower=0> lambda[N];
+}
+
+parameters {
+  real<lower=0> alpha;  // Shape parameter of the Negative Binomial
+  real<lower=0> beta;   // Scale parameter of the Negative Binomial
+}
+
+model {
+  alpha ~ normal(0, 10);  // 设置alpha的先验分布
+  beta ~ normal(0, 10);   // 设置beta的先验分布
+  for (i in 1:N) {
+    y[i] ~ neg_binomial_2(lambda[i] * alpha, beta);
+  }
+}
+"
+
+# Fit the model using Stan
+fit <- stan(model_code = stan_code, data = stan_data, iter = 4000, chains = 4)
+
+# View summary of the model fitting
+print(fit)
+
+
+# Extract posterior samples of alpha and beta
+posterior_samples <- extract(fit)
+
+# 4. Predict for 2028 Olympics (CHN)
+future_years <- data.frame(Year = 2028)
+future_lambda_log <- predict(ols_model, newdata = future_years)
+
+# Ensure future_residuals_arma is numeric and extract the forecast values
+future_residuals_arma <- as.numeric(predict(arma_model, n.ahead = 1)$pred)
+
+# Now we can safely add the values
+if (is.numeric(future_lambda_log) && is.numeric(future_residuals_arma)) {
+  future_lambda <- exp(future_lambda_log + future_residuals_arma)
+} else {
+  stop("The predicted values are not numeric.")
+}
+
+# Use posterior samples to generate predictions for the 2028 total medals count
+alpha_sample <- posterior_samples$alpha
+beta_sample <- posterior_samples$beta
+future_medals_samples <- rnbinom(length(alpha_sample), size = alpha_sample, mu = future_lambda)
+
+# Calculate the prediction for the 2028 total medals count (mean of posterior samples)
+predicted_medals <- mean(future_medals_samples)
+
+# Output the predicted medals
+predicted_medals
+
+
+
+# Check pairs plot for sampling problems
+mcmc_pairs(fit)
+
+
+```
+
+```{r}
+# Load necessary libraries for visualization
+library(ggplot2)
+
+# Create a dataframe with the predicted medal samples
+predicted_medals_df <- data.frame(predicted_medals_samples = future_medals_samples)
+
+# Create the visualization (Histogram with density curve)
+ggplot(predicted_medals_df, aes(x = predicted_medals_samples)) +
+  geom_histogram(binwidth = 1, fill = "lightblue", color = "black", alpha = 0.7) +
+  geom_density(aes(y = ..density..), fill = "red", alpha = 0.3) +
+  labs(title = "Predicted Number of Medals for CHINA at the 2028 Olympics",
+       x = "Predicted Medals",
+       y = "Density") +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 0.5, size = 16),
+    axis.title = element_text(size = 14),
+    axis.text = element_text(size = 12)
+  )
+
+```
+
+-   4.2 Dirichlet Distribution
+
+4.2.1 Description of Dirichlet distribution
+
+1.  Modeling based on the scale of existing medals: For each country $i$, we modeled the proportion of gold, silver and bronze medals it won in different events: $$
+    p_i=\operatorname{Dirichlet}\left(\alpha_i\right)
+    $$
+
+Where $p_i=\left(p_{i 1}, p_{i 2}, p_{i 3}\right)$ represents the proportion of gold, silver and bronze medals won by a country's $i$ in different events, and $\alpha_i$ is used as the hyperparameter of Dirichlet distribution to reflect the contribution of different sports to the total number of medals of the country. 2. The number of medals in each event:Once the percentage and total number of medals for each country is obtained, we calculate the specific number of medals for each country in the gold, silver and bronze events using the following formula: $$
+y_{i j}=p_{i j} \cdot y_i
+$$
+
+Where $y_{i j}$ represents the number of medals won by the country $i$ in the event $j$ (gold, silver or bronze), $p_{i j}$ is the proportion of medals obtained by the Dirichlet distribution, and $y_i$ represents the total number of medals won by the country $i$. 4.2.2 Prior Distribution - Dirichlet distribution hyperparameter Settings : $\alpha_{i j} \sim \operatorname{Gamma}(1,1)$, representing a prior distribution of the proportion of medals for each country on the item $j$. Team \# 2509384 Page 11 of 26 - Time effect : For autoregressive coefficients and moving average coefficients, assume that their priors are normally distributed: $$
+\alpha_i \sim \mathcal{N}(0,10), \quad \beta \sim \mathcal{N}(0,1)
+$$ - Discrete parameter of negative binomial distribution : $\phi \sim \operatorname{Gamma}(1,1)$.
+
+## K-Means++ Model
+
+In the upcoming Olympic Games, it is expected that several countries will win their first medals. To estimate this prediction, we used the K-means clustering method to predict which countries, that have never won a medal before, are most likely to win their first medal.
+
+5.1 K-means Clustering Steps
+
+The K-means clustering algorithm follows these steps: 1. Choosing the $K$ value: We determine how many clusters the data should be divided into, typically using methods like the elbow rule.
+
+2.  Calculating distances: For each country, we calculate its position in the feature space and assign it to the nearest cluster based on its distance from the cluster center.
+3.  Updating the cluster centers: We recalculate the cluster center based on the data points in the cluster
+4.  Iterative optimization: Repeat steps 2 and 3 until the cluster centers converge or change very little.
+
+The mathematical formula for calculating the distance between a data point and the cluster center is as follows: $$
+d\left(x_i, \mu_k\right)=\sqrt{\sum_{j=1}^n\left(x_{i j}-\mu_{k j}\right)^2}
+$$ where: - $x_i$ is the data point, - $\mu_k$ is the cluster center, - $n$ is the number of features in the data.
+
+Through this process, K-means can group countries based on their historical medal data and other relevant factors, helping to identify those with significant medal-winning potential in future Olympic Games.
+
+-   Credibility Score and Prediction Probability
+
+-   Credibility Score: Each country obtains a Credibility Score through analysis of clustering and capability data, with higher scores indicating a greater likelihood of winning medals. We can base predictions for first-time medals on the Credibility Score.
+
+-   Probability Calculation: For countries with higher Credibility Scores, we can define a threshold based on this score.
+
+-   Probability Distribution: Through the probability distribution, we can quantify these predictions. For example: $$
+    P(\text { Medal })=\frac{\text { Credibility Score }}{\text { Maximum Credibility Score }}
+    $$ where $P$ (Medal) represents the probability of a country winning its first medal, and the Credibility Score is normalized by the highest Credibility Score.
+
+The prediction probabilities for each country's likelihood of winning its first medal in the next Olympic Games are presented in the table below:
+
+```{=tex}
+\begin{tabular}{|c|c|}
+\hline Country & Probability of Winning First Medal \\
+\hline Albania & 0.764 \\
+Cape Verde & 0.762 \\
+Bahamas & 0.758 \\
+Ecuador & 0.717 \\
+Dominican Republic & 0.717 \\
+Lebanon & 0.701 \\
+Guinea & 0.666 \\
+\hline
+\end{tabular}
+```
+## Use SA solving target function of the improved ratio of medals per year with penalized dynamic function participating in
+
+In order to find out which projects in various countries need to hire "great coach" to help improve their performance, we established a Simulated Annealing(SA) algorithm to solve it.
+
+### ??Here, maybe it is imapproapriate to weight each independent variable using this correlation rule但是我不知道咋办了
+
+We set up a formula to calculate the correlation. Based on the independent variables we presented in 7.1 section, we multiply them by different weights. For the quantified ability coefficient, we multiply it by the correlation between the medals won in two Olympic Games. For hosts or not, we multiplied their correlation by the difference in the number of medals between each of the last ten Olympic Games. For the weight of whether to use the coach, we are constructed by 1 minus the weight of the above two coefficients.
+
+$\sum_{i=1}^{n} (\text{Ability}_i \cdot w_i + \text{HostCountry}_i\cdot w_2 + (1 - w_1 - w_2) \cdot  x_i)$
+
+$\alpha \cdot \max\left(0, \sum_{j=1}^{n} x_i - 5\right)$
+
+--\> $\sum_{i=1}^{n} (\text{Ability}_i \cdot w_i + \text{HostCountry}_i\cdot w_2 + (1 - w_1 - w_2) \cdot  x_i) - \alpha \cdot \max\left(0, \sum_{j=1}^{n} x_i - 5\right)$
+
+Then we use 模拟退火解决这个
+
+每个国家最多5个项目教练效应，模拟退火告诉我们那些$x_i$是1然后知道哪些项目请教练
+
+-   result
+
+The medal increment was calculated using the simulated annealing model. Results show that the "celebrity coach effect" significantly boosts medals. Specifically, the United States sees the largest increase, especially in ice hockey and football, while Japan’s increment is 4, with a smaller effect due to its strong foundation in sports like gymnastics. Belarus has a modest increase of 2, as the coach effect is limited by a weaker foundation in these sports.
+
+## Lasso for choosing the most important programs for each country 但是如果按国家来看数据量不够啊？？
+
+$$\hat{\beta} = \text{argmin} \left( \sum_{i=1}^{n} \left( y_i - \beta_0 - \beta_1 x_1 - \sum_{j=2}^{n} \beta_j x_j - \sum_{j=2}^{n} \beta_j z_j - \sum_{j=2}^{n} \beta_{j+n} (x_j \times z_j) \right)^2 + \lambda \sum_{j=1}^{n} |\beta_j| \right)$$ $x_1$ is Host(0,1)
+
+$X_j$ is ability(medals/all medals)
+
+$Z_j$ is chance(participanting program/all programs)
+
+The j from 2 to n means the index of each program.
+
+After LASSO, we get penalized model which shirinkage some unimportant variables.
+
+## Sensitive analysis of Bayesian composite model
+
+![](images/clipboard-3424991804.png)
+
+## 一些处理数据的技巧--希望下次掌握熟练一点
+
+### 数据预处理
+
+当年某项sport某国的能力用medalpercetage表示 noc表示
+
+``` r
+
+# 加载必需的库
+library(dplyr)
+library(tidyr)
+
+# 读取数据
+
+
+# 计算每个 NOC, Year 和 Sport 组合的奖项数量
+medal_counts <- athletes_data %>%
+  group_by(NOC, Year, Sport, Medal) %>%
+  summarise(Medal_Count = n(), .groups = 'drop') %>%
+  spread(key = Medal, value = Medal_Count, fill = 0)  # 展开 Medal 列为各奖项类型
+
+# 计算每个 Year 和 Sport 组合的总行数
+total_counts <- athletes_data %>%
+  group_by(Year, Sport) %>%
+  summarise(Total_Count = n(), .groups = 'drop')
+
+# 将 medal_counts 和 total_counts 合并
+medal_with_total <- medal_counts %>%
+  left_join(total_counts, by = c("Year", "Sport"))
+
+# 计算金、银、铜奖总数占总行数的比例
+medal_with_total <- medal_with_total %>%
+  mutate(Total_Medals = Gold + Silver + Bronze,  # 包括 No medal 作为奖项
+         Medal_Percentage = Total_Medals / Total_Count)
+
+# 保留原始数据中的其他列并与奖项统计信息进行连接
+final_data <- athletes_data %>%
+  left_join(medal_with_total, by = c("NOC", "Year", "Sport"))
+
+# 保存结果
+write.csv(final_data, "aFina0.csv", row.names = FALSE)
+
+# 查看前几行结果
+head(final_data)
+```
+
+### noc抓怒汉
+
+如果文件summerOly_medal_counts的Team列的每一行名在文件aFina0的同行有对应的NOC那么把这个文件的Team名变成NOC，如果没有对应的删除这个文件的一整行数据，生成新数据，其余列不变
+
+``` r
+# 读取CSV文件
+summerOly_medal_counts <- read.csv("/Users/luyu/Desktop/MCM2025/new_summerOly_medal_counts_with_Host.csv", stringsAsFactors = FALSE)
+aFina0 <- read.csv("aFina0.csv", stringsAsFactors = FALSE)
+
+# 找到summerOly_medal_counts中Team列在aFina0的Team列中有对应值的行
+matched_rows <- summerOly_medal_counts$Team %in% aFina0$Team
+
+# 将匹配的行的Team列替换为对应的NOC
+summerOly_medal_counts$Team[matched_rows] <- aFina0$NOC[match(summerOly_medal_counts$Team[matched_rows], aFina0$Team)]
+
+# 删除没有匹配的行
+summerOly_medal_counts <- summerOly_medal_counts[matched_rows, ]
+
+# 保存新的数据到CSV文件
+write.csv(summerOly_medal_counts, "new_summerOly_medal_counts.csv", row.names = FALSE)
+```
+
+### 唯一标识组是Noc 和Year 统计参加每种Sport的数量 合成一个新的csv 每个Sport弄成单独一列数值是Noc与Year这行参加的数量
+
+``` r
+# Load required library
+library(dplyr)
+library(tidyr)
+
+# Load the data
+data1 <- read.csv("aFina0.csv")
+
+# Step 1: Group by NOC and Year, and count the number of occurrences for each Sport
+sport_count <- data1 %>%
+  group_by(NOC, Year, Sport) %>%
+  summarise(Sport_Count = n(), .groups = 'drop')
+
+# Step 2: Spread the data so that each Sport is a column
+sport_count_spread <- sport_count %>%
+  spread(key = Sport, value = Sport_Count, fill = 0)
+
+# Step 3: Save the result to a new CSV file
+write.csv(sport_count_spread, "sport_count_by_NOC_Year.csv", row.names = FALSE)
+
+# Optionally, view the result
+head(sport_count_spread)
+
+
+```
+
+### 如果NOC和Year一样，把
+
+# 
+
+``` r
+# 读取CSV文件
+summerOly_medal_counts <- read.csv("summerOly_medal_counts.csv", stringsAsFactors = FALSE)
+merged_data_with_allTotal <- read.csv("merged_data_with_allTotal.csv", stringsAsFactors = FALSE)
+
+# 在summerOly_medal_counts中添加一列Host，初始值为NA
+summerOly_medal_counts$Host <- NA
+
+# 遍历summerOly_medal_counts的每一行
+for (i in 1:nrow(summerOly_medal_counts)) {
+  # 找到merged_data_with_allTotal中Year和Team匹配的行
+  matched_row <- merged_data_with_allTotal[
+    merged_data_with_allTotal$Year == summerOly_medal_counts$Year[i] &
+    merged_data_with_allTotal$Team == summerOly_medal_counts$Team[i], 
+    "Host"
+  ]
+  
+  # 如果找到匹配的行，将Host值赋给summerOly_medal_counts的Host列
+  if (length(matched_row) > 0) {
+    summerOly_medal_counts$Host[i] <- matched_row
+  }
+}
+
+# 保存新的数据到CSV文件
+write.csv(summerOly_medal_counts, "new_summerOly_medal_counts_with_Host.csv", row.names = FALSE)
+```
+
+``` r
+
+
+# 读取CSV文件
+data3 <- read.csv("/Users/luyu/Desktop/Book1.csv", stringsAsFactors = FALSE)
+data4 <- read.csv("new_summerOly_medal_counts.csv", stringsAsFactors = FALSE)
+
+
+
+# 使用merge函数按Year和NOC进行合并，选择外连接（all.x = TRUE）以保留data3的所有行
+merged_data <- merge(data3, data4[, c("NOC", "Year", "Total", "Host")], by = c("Year", "NOC"), all.x = TRUE)
+
+# 保存新的数据到CSV文件
+write.csv(merged_data, "FINAL1.csv", row.names = FALSE)
+```
+
+r代码 /Users/luyu/Desktop/Book1.csv中 如果NOC，Year和Sport都相同，只保留一个
+
+``` r
+# 加载dplyr包
+library(dplyr)
+
+# 读取CSV文件
+data <- read.csv("/Users/luyu/Desktop/Book1.csv", stringsAsFactors = FALSE)
+
+# 删除重复行，基于NOC、Year和Sport列
+unique_data <- data %>%
+  distinct(NOC, Year, Sport, .keep_all = TRUE)
+
+# 保存新的数据到CSV文件
+write.csv(unique_data, "/Users/luyu/Desktop/MCM2025/Book1_unique.csv", row.names = FALSE)
+```
+
+### host total和 percentage合并
+
+NOC Total Year Host读取
+
+``` r
+# 加载必要的库
+library(dplyr)
+
+# 读取nocability和sport_count数据
+nocability <- read.csv("nocability.csv")
+sport_count <- read.csv("sport_count.csv")
+
+# 将sport_count的列名中的空格替换为点
+colnames(sport_count) <- gsub(" ", ".", colnames(sport_count))
+
+# 确保nocability中的列名也符合相同的规则，去除空格并转换为点
+nocability$Sport <- gsub(" ", ".", nocability$Sport)
+
+# 查看列名和数据类型，确认一致
+print(names(sport_count))  # 查看sport_count列名
+print(names(nocability))   # 查看nocability列名
+print(head(sport_count))   # 查看sport_count的数据
+print(head(nocability))    # 查看nocability的数据
+
+# 提取nocability中的所有Sport列的唯一值
+nocability_sports <- unique(nocability$Sport)
+
+# 确保sport_count中的列名与nocability中的Sport列一致
+matching_sports <- colnames(sport_count)[3:ncol(sport_count)] %in% nocability_sports
+
+# 打印匹配的结果，检查是否所有列名都能在nocability中找到
+print(matching_sports)
+
+# 如果列名与nocability中的Sport列一致，则继续计算，否则报告不一致的列名
+if (all(matching_sports)) {
+  print("列名一致，可以进行比较")
+} else {
+  print("列名存在不一致，无法进行比较")
+}
+
+# 遍历nocability的每一行，更新sport_count
+for (i in 1:nrow(nocability)) {
+  year <- nocability$Year[i]  # 获取当前年份
+  noc <- nocability$NOC[i]    # 获取当前NOC
+  sport <- nocability$Sport[i]  # 获取当前运动名称
+  medal_percentage <- nocability$Medal_Percentage[i]  # 获取当前运动的奖牌百分比
+  
+  # 在sport_count中查找对应年份和NOC的行
+  matching_rows <- which(sport_count$Year == year & sport_count$NOC == noc)
+  
+  # 如果找到匹配的行，并且当前sport列名在sport_count的列名中，乘上Medal_Percentage值
+  if (length(matching_rows) > 0 && sport %in% names(sport_count)) {
+    sport_count[[sport]][matching_rows] <- sport_count[[sport]][matching_rows] * medal_percentage
+  }
+}
+
+# 保存修改后的sport_count数据
+write.csv(sport_count, "modified_sport_count.csv", row.names = FALSE)
+
+# 查看修改后的数据
+head(sport_count)
+```
+
+# 
+
+``` r
+# 加载dplyr库
+library(dplyr)
+
+# 读取数据
+data1 <- read.csv("modified_sport_count.csv")
+data2 <- read.csv("totalhost.csv")
+
+# 在data1中添加Total和Host列，初始值为NA
+data1$Total <- NA
+data1$Host <- NA
+
+# 遍历data2的每一行，匹配NOC和Year，并填充Total和Host
+for (i in 1:nrow(data2)) {
+  noc <- data2$NOC[i]
+  year <- data2$Year[i]
+  total <- data2$Total[i]
+  host <- data2$Host[i]
+  
+  # 找到data1中匹配的行
+  matching_rows <- which(data1$NOC == noc & data1$Year == year)
+  
+  # 如果找到匹配的行，填充Total和Host
+  if (length(matching_rows) > 0) {
+    data1$Total[matching_rows] <- total
+    data1$Host[matching_rows] <- host
+  }
+}
+
+# 查看结果
+head(data1)
+
+# 保存修改后的数据
+write.csv(data1, "你好世界.csv", row.names = FALSE)
+```
+
+最终删除某年没参赛的国家
+
+``` r
+# 读取CSV文件
+data <- read.csv("你好世界.csv")
+
+# 删除Total列中有NA值的行
+data <- data[!is.na(data$Total), ]
+
+# 将Host列中的NA值替换为0
+data$Host[is.na(data$Host)] <- 0
+
+# 保存修改后的数据到新的CSV文件
+write.csv(data, "完美数据.csv", row.names = FALSE)
+
+# 查看修改后的数据
+head(data)
+```
+
+#### pie chart loop
+
+``` r
+# Load necessary libraries
+library(dplyr)
+library(ggplot2)
+
+# Assuming your dataset is called 'data'
+ data <- read.csv("/Users/luyu/Desktop/MCM2025/Book8.csv")
+
+# Function to create and save pie chart for each Year and NOC combination
+create_pie_chart <- function(year_noc_data, output_dir) {
+  # Select the relevant columns (assuming they are the sports columns)
+  sports_data <- year_noc_data %>% select(-Year, -NOC)
+  
+  # Summarize by finding the top 3 largest values
+  top_3_sports <- sort(colSums(sports_data), decreasing = TRUE)[1:3]
+  
+  # Prepare data for the pie chart
+  pie_data <- data.frame(
+    sport = names(top_3_sports),
+    value = top_3_sports
+  )
+  
+  # Create pie chart
+  pie_chart <- ggplot(pie_data, aes(x = "", y = value, fill = sport)) +
+    geom_bar(stat = "identity", width = 1) +
+    coord_polar(theta = "y") +
+    labs(title = paste("Top 3 Sports for", year_noc_data$Year[1], year_noc_data$NOC[1])) +
+    theme_void() +
+    theme(legend.title = element_blank()) +
+    theme(legend.position = "bottom")
+  
+  # Save the pie chart as an image file (e.g., PNG)
+  output_path <- file.path(output_dir, paste("pie_chart_", year_noc_data$Year[1], "_", year_noc_data$NOC[1], ".png", sep = ""))
+  ggsave(output_path, pie_chart)
+}
+
+# Example to apply this function to your dataset
+# Here, data is assumed to be a dataframe with 'Year', 'NOC', and sports columns
+
+# Define the directory to save the output images
+output_dir <- "/Users/luyu/Desktop/MCM2025  # Update with the desired directory
+
+# Loop through each unique Year and NOC combination
+for (year in unique(data$Year)) {
+  for (noc in unique(data$NOC)) {
+    specific_data <- data %>% filter(Year == year, NOC == noc)
+    
+    # Create and save pie chart for the specific Year and NOC combination
+    create_pie_chart(specific_data, output_dir)
+  }
+}
+
+
+
+
+
+```r
+# 加载必要的包
+library(dplyr)
+
+# 读取数据
+data <- read.csv("完美数据.csv")
+
+# 选择需要的列
+selected_vars <- c("Archery", "Athletics", "Badminton", "Basketball", "Basque.Pelota", "Boxing", 
+                   "Breaking", "Canoeing", "Croquet", "Cycling", "Equestrian", "Fencing", "Football",
+                   "Golf", "Gymnastics", "Handball", "Ice.Hockey", "Judo", "Karate", "Lacrosse", 
+                   "Modern.Pentathlon", "Polo", "Rowing", "Rugby", "Sailing", "Shooting", "Skateboarding",
+                   "Sport.Climbing", "Surfing", "Table.Tennis", "Taekwondo", "Tennis", "Triathlon", 
+                   "Volleyball", "Weightlifting", "Wrestling")
+
+# 提取选中的列
+selected_data <- data[, c("NOC", "Year", selected_vars)]
+
+# 创建一个空的dataframe来存储结果
+top_5_data <- data.frame()
+
+# 对每个变量提取前5个最大值对应的行
+for (var in selected_vars) {
+  top_5_data <- rbind(top_5_data, selected_data %>%
+                        arrange(desc(!!sym(var))) %>%
+                        slice(1:5) %>%
+                        select(NOC, Year, !!sym(var)))
+}
+
+# 保存为新的CSV文件
+write.csv(top_5_data, "Top_5_Values.csv", row.names = FALSE)
+
+# 打印结果表格
+print(top_5_data)
+```

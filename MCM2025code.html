@@ -1,0 +1,1364 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.555">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>The Riddle of Olympic Medal Table: Mathematical Model Prediction and Multi-factor Analysis</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="MCM2025code_files/libs/clipboard/clipboard.min.js"></script>
+<script src="MCM2025code_files/libs/quarto-html/quarto.js"></script>
+<script src="MCM2025code_files/libs/quarto-html/popper.min.js"></script>
+<script src="MCM2025code_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="MCM2025code_files/libs/quarto-html/anchor.min.js"></script>
+<link href="MCM2025code_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="MCM2025code_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="MCM2025code_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="MCM2025code_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="MCM2025code_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">The Riddle of Olympic Medal Table: Mathematical Model Prediction and Multi-factor Analysis</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="abstract" class="level2">
+<h2 class="anchored" data-anchor-id="abstract">Abstract</h2>
+<p>The Summer Olympics are held every four years. The Olympic medal tally and its related influencing factors are a focus of general concern. Therefore, we set up a mathematical model to analyze and forecast the relevant data of the Olympic Games.</p>
+<p>Firstly, we build a combinatorial to predict the 2028 Olympic medal. This model comprehensively analyzes the influence of different factors and time series on the Olympic medal table. Therefore, we predict medal distribution that in 2028. Then, we combined the to calculate the number of gold medals in the predicted medals and evaluated the analysis through the posterior distribution. The , indicating that the model has good prediction performance.</p>
+<p>Secondly, we used the data to divide countries into two clusters (potential and non-potential) based on historical medal count and whether they have won medals. Then, we use clustering method for analysis and prediction. The final prediction is that will win their first medals, and then we quantify the probability distribution and predict their odds.</p>
+<p>Thirdly, we set up a to analyze and explore the impact and relationship between events and organizers on the number of medals. The model training results show that the event has a significant impact on the number of medals, and the . The host country also had a significant on the number of medals, with a . In addition, we established Lasso regression model to explore the most important sports in different countries, and the evaluation error of the model was small, indicating that the model was highly interpretable.</p>
+<p>Fourthly, we still use to analyze the influence of coach factor is used to explore the effect of “great coach”. The model results show that the model’s fitting degree . In addition, the model indicates that the great coach has a greater contribution to the number of medals. Then, we use algorithm to solve a model, which employs a to control variables, showing the United States, Japan, Belarus three countries to hire the program and its possible impact on the number of medals in the next Olympic Games.</p>
+<p>Finally, we explored three insights from our model and explain their reference value to country Olympic Committees.</p>
+<ul>
+<li>Keywords: Hierarchical Bayesian, Dirichlet Distribution, K-Means++, MLR, Penalized Lasso Regression, Dynamic Penalized Function, SA</li>
+</ul>
+</section>
+<section id="problem-background" class="level2">
+<h2 class="anchored" data-anchor-id="problem-background">Problem Background</h2>
+<p>As one of the most influential comprehensive sports events in the world, the Summer Olympic Games will be held every four years, attracting the attention of people all over the world. Olympic medals are not only a platform for athletes to show themselves, challenge themselves and pursue excellence, but also reflect a country’s honor, sports strength and Economic strength and many other aspects. By modeling and forecasting the distribution of Olympic medals, it can better optimize the allocation of sports resources, stimulate the athletes’ competitive state and promote the development of science and technology sports.</p>
+</section>
+<section id="restatement-of-the-problem" class="level2">
+<h2 class="anchored" data-anchor-id="restatement-of-the-problem">Restatement of the Problem</h2>
+<p>To achieve these goals, we need to analyze the provided data and answer the following questions:</p>
+<ul>
+<li><p>Develop a prediction model to forecast the 2028 Los Angeles Summer Olympics medal table and provide the medal distribution of countries compared to the 2024 Summer Olympics.</p></li>
+<li><p>Build another prediction model to predict how many countries will win their first medal at the next Olympic Games. Model evaluation is also required.</p></li>
+<li><p>Establish a model to analyze the relationship between the number and type of events in the Olympic Games and the number of medals won by each country, the important sports of different countries and the influence of the selection of home country events on the number of medals won.</p></li>
+<li><p>Select three sports in which the country could benefit from a great coach and analyze the potential impact of the “great coach” effect on their country’s Olympic performance. Though the data of coach information here is not offered.</p></li>
+<li><p>Explore the original insights of the model and explain its help to the Olympic Committee.</p></li>
+</ul>
+<p>(Our thinking: The total number of medals is only relevant to time factors that reflected in our ARMA model, the ability of a country in each Olympics programs reflected only by the percentage of the number of medals in this program of this country / the total number of medals in this program, the chance reflected only by the percentage of a certain program / the total number of this program this year, the effect of being a host, the coach effect and other effects that needs to be observed but it is difficult without any other information.)</p>
+<p><img src="images/clipboard-2083949839.png" class="img-fluid"></p>
+</section>
+<section id="assumptions" class="level2">
+<h2 class="anchored" data-anchor-id="assumptions"><img src="images/clipboard-184356056.png" class="img-fluid">Assumptions</h2>
+<ul>
+<li>All countries participating in the Paris 2024 Olympic Games will normally participate in the Los Angeles 2028 Olympic Games without withdrawing or refusing to participate for other reasons.</li>
+</ul>
+<p><span class="math inline">\(t\)</span> &amp; Time series effect<br>
+</p>
+<p><span class="math inline">\(\beta_0\)</span> &amp; Intercept<br>
+</p>
+<p><span class="math inline">\(\beta_1\)</span> &amp; Host effect coefficient<br>
+<span class="math inline">\(\gamma_j\)</span> &amp; The impact coefficient of each project<br>
+<span class="math inline">\(\lambda_i\)</span> &amp; the total medal count<br>
+<span class="math inline">\(\log(\lambda_i)\)</span> &amp; The logarithm of the expected number of medals<br>
+$x_{ij} $ &amp; <span class="math inline">\(\text{AthleteMedalRatio}_{ij} \times \text{ProjectPercent}_{j}\)</span><br>
+<span class="math inline">\(\alpha_i\)</span> &amp; Time trend for each country (AR item).<br>
+<span class="math inline">\(x_1\)</span> &amp; the host country<br>
+<span class="math inline">\(x_j\)</span> &amp; the proportion of medals in an event<br>
+<span class="math inline">\(z_j\)</span> &amp; item event ratio<br>
+<span class="math inline">\(x_j \cdot z_j\)</span> &amp; Interaction between medal ratio and event ratio<br>
+<span class="math inline">\(y_t\)</span>&amp; quantified medal count in <span class="math inline">\(t\)</span>year<br>
+<span class="math inline">\(\beta_0\)</span> &amp; the intercept term of the model<br>
+<span class="math inline">\(\epsilon_t\)</span> &amp; error term<br>
+</p>
+<p><span class="math inline">\(R^2\)</span> &amp; the coefficient of determination<br>
+MAE &amp; the Mean Absolute Error<br>
+</p>
+</section>
+<section id="hierarchical-bayesian-composite-model" class="level2">
+<h2 class="anchored" data-anchor-id="hierarchical-bayesian-composite-model">Hierarchical Bayesian Composite Model</h2>
+<p>We first estimate the total number of gold medals, and then we model with negative binomial distribution, including OLS estimate <span class="math inline">\(\lambda\)</span> and Bayes formula +MCMC estimate <span class="math inline">\(\phi\)</span>. After that, we use the Dirichlet distribution to estimate the gold, silver and copper ratio, and finally multiply the estimated total number of gold medals by the ratio to get the medal distribution.</p>
+<ul>
+<li>Using OLS and ARMA to estimate <span class="math inline">\(\lambda_i\)</span></li>
+</ul>
+<p>Firstly, we use OLS to estimate <span class="math inline">\(\lambda_i\)</span>. Instead of selecting <span class="math inline">\(\lambda_i\)</span> directly, we use <span class="math inline">\(\log \left(\lambda_i\right)\)</span>. This is because we consider that logarithms compress the discreteness of the existing data, bringing it closer to a normal distribution. Besides, logarithmic transformation can better stabilize the variance, thereby improving the stability of the regression model and enhancing its prediction performance. The update equations of Hierarchical Bayesian are as follows: <span class="math display">\[
+\log \left(\lambda_i\right)=\beta_0+\beta_1 \cdot \operatorname{Host}_i+\sum_{j=1}^M \gamma_j \cdot \text { ProjectAbility }{ }_{i j}+\alpha_i \cdot t+\epsilon_i
+\]</span></p>
+<p>Where: <span class="math inline">\(\alpha_i \cdot t+\epsilon_i \sim \mathcal{N}\left(0, \tau^2\right)\)</span> denotes random error, same as in the ordinary regression residual term. Secondly, we further build time series model(AR and MA) to have a better estimate of the residual term <span class="math inline">\(\epsilon_i\)</span> by adding time-related information. 1. Autoregressive (AR) model:</p>
+<p>Suppose that the number of medals won by the country in this Olympic Games depends on its performance in the previous Olympic Games: <span class="math display">\[
+y_{i, t}=\alpha_i \cdot y_{i, t-1}+\epsilon_{i t}
+\]</span></p>
+<p>Where <span class="math inline">\(\alpha_i\)</span> is the autoregressive coefficient. 2. Moving Average (MA) model:</p>
+<p>Suppose that the medal tally of the past few Olympic Games has an effect on the performance of this Olympic Games: <span class="math display">\[
+y_{i, t}=\frac{1}{3} \sum_{k=t-3}^{t-1} y_{i, k}+\epsilon_{i t}
+\]</span> Team # 2509384 Page 9 of 26 3. Combined model of Autoregression and Moving Average:</p>
+<p>The combination of autoregressive and moving average can be used to smooth out fluctuations in medal counts and capture long-term time trends in medal counts. The equation of ARMA model[2] used to describe the error term <span class="math inline">\(\epsilon_t\)</span> is as follows: <span class="math display">\[
+\epsilon_t=\phi_1 \epsilon_{t-1}+\phi_2 \epsilon_{t-2}+\cdots+\phi_p \epsilon_{t-p}+\theta_1 \eta_{t-1}+\theta_2 \eta_{t-2}+\cdots+\theta_q \eta_{t-q}
+\]</span></p>
+<p>By substituting the error part <span class="math inline">\(\left(\epsilon_t\right)\)</span> of the ARMA model into the multi-level Bayesian model, we get the synthesized formula as follows: <span class="math display">\[
+\begin{aligned}
+\log \left(\lambda_i\right)= &amp; \beta_0+\beta_1 \cdot \text { Host }_i+\sum_{j=1}^M \gamma_j \cdot \text { ProjectAbility }_{i j}+\alpha_i t+\left(\phi_1 \epsilon_{t-1}+\phi_2 \epsilon_{t-2}+\phi_3 \epsilon_{t-3}+\cdots\right. \\
+&amp; \left.+\phi_p \epsilon_{t-p}+\theta_1 \eta_{t-1}+\theta_2 \eta_{t-2}+\cdots+\theta_q \eta_{t-q}\right)
+\end{aligned}
+\]</span> - Using Hierarchical Bayesian and MCMC to estimate <span class="math inline">\(\phi\)</span></p>
+<p>According to Bayes’ theorem, we have: <span class="math display">\[
+P(\phi \mid Y) \sim P(Y \mid \phi) \cdot P(\phi)
+\]</span></p>
+<p>Where: - <span class="math inline">\(P(\phi \mid Y)\)</span> is a posterior distribution. - <span class="math inline">\(P(Y \mid \phi)\)</span> is the likelihood function. - <span class="math inline">\(P(\phi)\)</span> is the prior distribution.</p>
+<p>In addition, we assume that <span class="math inline">\(\phi\)</span> follows the inverse gamma distribution[3]. <span class="math display">\[
+\phi \sim \operatorname{InverseGamma}(\alpha, \beta)
+\]</span></p>
+<p>The probability density function of the inverse gamma distribution is: <span class="math display">\[
+p\left(\phi^2\right)=\frac{\beta^\alpha}{\Gamma(\alpha)} \cdot\left(\phi^2\right)^{-(\alpha+1)} \cdot \exp \left(-\frac{\beta}{\phi^2}\right)
+\]</span></p>
+<p>Then, we use the Metropolis-Hastings algorithm for sampling. The basic idea of the Metropolis-Hastings algorithm is to sample from a complex posterior distribution by constructing a candidate distribution. Its formula for calculating the acceptance rate <span class="math inline">\(\alpha\)</span> for the given current sample <span class="math inline">\(\phi_{\text {old }}^2\)</span> and candidate sample <span class="math inline">\(\phi_{\text {new }}^2\)</span> is: <span class="math display">\[
+\alpha=\min \left(1, \frac{p\left(y \mid \phi_{\text {new }}^2\right) \cdot p\left(\phi_{\text {new }}^2\right)}{p\left(y \mid \phi_{\text {old }}^2\right) \cdot p\left(\phi_{\text {old }}^2\right)}\right)
+\]</span></p>
+<p>Where, <span class="math inline">\(p\left(y \mid \phi^2\right)\)</span> denotes the likelihood function. According to the calculation, we get a sample acceptance of <span class="math inline">\(30 \%\)</span>.</p>
+<section id="here-we-only-use-year-but-not-other-information-in-the-estimate-in-loglambda-but-in-the-mcm-i-just-say-it-also-adds-all-sports-related-informationmaybe-it-is-not-suitable-since-we-do-not-know-future-exact-information-about-sport-related-information.-omg.-also-time-series-already-gives-us-much-information-and-if-i-add-much-more-variables-maybe-it-will-overfitting" class="level3">
+<h3 class="anchored" data-anchor-id="here-we-only-use-year-but-not-other-information-in-the-estimate-in-loglambda-but-in-the-mcm-i-just-say-it-also-adds-all-sports-related-informationmaybe-it-is-not-suitable-since-we-do-not-know-future-exact-information-about-sport-related-information.-omg.-also-time-series-already-gives-us-much-information-and-if-i-add-much-more-variables-maybe-it-will-overfitting">? Here we only use Year but not other information in the estimate in log<span class="math inline">\(\lambda\)</span> but in the MCM I just say it also adds all sports-related information…Maybe it is not suitable since we do not know future exact information about sport-related information. OMG. Also, time-series already gives us much information and if I add much more variables, maybe it will overfitting???</h3>
+<p>BUt this model is also not very good</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Install and load necessary libraries</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rstan)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: StanHeaders</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+rstan version 2.32.6 (Stan version 2.32.2)</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>For execution on a local, multicore CPU with excess RAM we recommend calling
+options(mc.cores = parallel::detectCores()).
+To avoid recompilation of unchanged Stan programs, we recommend calling
+rstan_options(auto_write = TRUE)
+For within-chain threading using `reduce_sum()` or `map_rect()` Stan functions,
+change `threads_per_chain` option:
+rstan_options(threads_per_chain = 1)</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(forecast)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Registered S3 method overwritten by 'quantmod':
+  method            from
+  as.zoo.data.frame zoo </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'dplyr'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:stats':
+
+    filter, lag</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(bayesplot)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>This is bayesplot version 1.11.1</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>- Online documentation and vignettes at mc-stan.org/bayesplot</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>- bayesplot theme set to bayesplot::theme_default()</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>   * Does _not_ affect other ggplot2 plots</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>   * See ?bayesplot_theme_set for details on theme setting</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Prepare your dataset (assuming 'data' is your dataframe)</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"/Users/luyu/Desktop/完美数据.csv"</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter out data for CHN (China) only</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>chn_data <span class="ot">&lt;-</span> <span class="fu">subset</span>(data, NOC <span class="sc">==</span> <span class="st">"CHN"</span>)</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Estimate log(lambda) using OLS</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>chn_data<span class="sc">$</span>log_total <span class="ot">&lt;-</span> <span class="fu">log</span>(chn_data<span class="sc">$</span>Total)</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit OLS model for log(lambda)</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>ols_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(log_total <span class="sc">~</span> Year, <span class="at">data =</span> chn_data)</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract the fitted values and residuals</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>chn_data<span class="sc">$</span>fitted_log_lambda <span class="ot">&lt;-</span> <span class="fu">fitted</span>(ols_model)</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>chn_data<span class="sc">$</span>residuals <span class="ot">&lt;-</span> <span class="fu">residuals</span>(ols_model)</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Estimate ARMA model for the residuals</span></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>arma_model <span class="ot">&lt;-</span> <span class="fu">auto.arima</span>(chn_data<span class="sc">$</span>residuals)</span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the residuals from the ARMA model</span></span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>chn_data<span class="sc">$</span>residuals_arma <span class="ot">&lt;-</span> <span class="fu">residuals</span>(arma_model)</span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Estimate lambda for Negative Binomial</span></span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a>lambda_estimates <span class="ot">&lt;-</span> <span class="fu">exp</span>(chn_data<span class="sc">$</span>fitted_log_lambda <span class="sc">+</span> chn_data<span class="sc">$</span>residuals_arma)</span>
+<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Prepare data for Stan (Negative Binomial model)</span></span>
+<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a>stan_data <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a>  <span class="at">N =</span> <span class="fu">nrow</span>(chn_data),          <span class="co"># Number of data points</span></span>
+<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> chn_data<span class="sc">$</span>Total,          <span class="co"># Total medals (observed data)</span></span>
+<span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a>  <span class="at">lambda =</span> lambda_estimates    <span class="co"># Estimated lambda values</span></span>
+<span id="cb17-31"><a href="#cb17-31" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb17-32"><a href="#cb17-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-33"><a href="#cb17-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Stan model code for Negative Binomial</span></span>
+<span id="cb17-34"><a href="#cb17-34" aria-hidden="true" tabindex="-1"></a>stan_code <span class="ot">&lt;-</span> <span class="st">"</span></span>
+<span id="cb17-35"><a href="#cb17-35" aria-hidden="true" tabindex="-1"></a><span class="st">data {</span></span>
+<span id="cb17-36"><a href="#cb17-36" aria-hidden="true" tabindex="-1"></a><span class="st">  int&lt;lower=0&gt; N;</span></span>
+<span id="cb17-37"><a href="#cb17-37" aria-hidden="true" tabindex="-1"></a><span class="st">  int&lt;lower=0&gt; y[N];</span></span>
+<span id="cb17-38"><a href="#cb17-38" aria-hidden="true" tabindex="-1"></a><span class="st">  real&lt;lower=0&gt; lambda[N];</span></span>
+<span id="cb17-39"><a href="#cb17-39" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
+<span id="cb17-40"><a href="#cb17-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-41"><a href="#cb17-41" aria-hidden="true" tabindex="-1"></a><span class="st">parameters {</span></span>
+<span id="cb17-42"><a href="#cb17-42" aria-hidden="true" tabindex="-1"></a><span class="st">  real&lt;lower=0&gt; alpha;  // Shape parameter of the Negative Binomial</span></span>
+<span id="cb17-43"><a href="#cb17-43" aria-hidden="true" tabindex="-1"></a><span class="st">  real&lt;lower=0&gt; beta;   // Scale parameter of the Negative Binomial</span></span>
+<span id="cb17-44"><a href="#cb17-44" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
+<span id="cb17-45"><a href="#cb17-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-46"><a href="#cb17-46" aria-hidden="true" tabindex="-1"></a><span class="st">model {</span></span>
+<span id="cb17-47"><a href="#cb17-47" aria-hidden="true" tabindex="-1"></a><span class="st">  alpha ~ normal(0, 10);  // 设置alpha的先验分布</span></span>
+<span id="cb17-48"><a href="#cb17-48" aria-hidden="true" tabindex="-1"></a><span class="st">  beta ~ normal(0, 10);   // 设置beta的先验分布</span></span>
+<span id="cb17-49"><a href="#cb17-49" aria-hidden="true" tabindex="-1"></a><span class="st">  for (i in 1:N) {</span></span>
+<span id="cb17-50"><a href="#cb17-50" aria-hidden="true" tabindex="-1"></a><span class="st">    y[i] ~ neg_binomial_2(lambda[i] * alpha, beta);</span></span>
+<span id="cb17-51"><a href="#cb17-51" aria-hidden="true" tabindex="-1"></a><span class="st">  }</span></span>
+<span id="cb17-52"><a href="#cb17-52" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
+<span id="cb17-53"><a href="#cb17-53" aria-hidden="true" tabindex="-1"></a><span class="st">"</span></span>
+<span id="cb17-54"><a href="#cb17-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-55"><a href="#cb17-55" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit the model using Stan</span></span>
+<span id="cb17-56"><a href="#cb17-56" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">stan</span>(<span class="at">model_code =</span> stan_code, <span class="at">data =</span> stan_data, <span class="at">iter =</span> <span class="dv">4000</span>, <span class="at">chains =</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 1).
+Chain 1: 
+Chain 1: Gradient evaluation took 6e-06 seconds
+Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 0.06 seconds.
+Chain 1: Adjust your expectations accordingly!
+Chain 1: 
+Chain 1: 
+Chain 1: Iteration:    1 / 4000 [  0%]  (Warmup)
+Chain 1: Iteration:  400 / 4000 [ 10%]  (Warmup)
+Chain 1: Iteration:  800 / 4000 [ 20%]  (Warmup)
+Chain 1: Iteration: 1200 / 4000 [ 30%]  (Warmup)
+Chain 1: Iteration: 1600 / 4000 [ 40%]  (Warmup)
+Chain 1: Iteration: 2000 / 4000 [ 50%]  (Warmup)
+Chain 1: Iteration: 2001 / 4000 [ 50%]  (Sampling)
+Chain 1: Iteration: 2400 / 4000 [ 60%]  (Sampling)
+Chain 1: Iteration: 2800 / 4000 [ 70%]  (Sampling)
+Chain 1: Iteration: 3200 / 4000 [ 80%]  (Sampling)
+Chain 1: Iteration: 3600 / 4000 [ 90%]  (Sampling)
+Chain 1: Iteration: 4000 / 4000 [100%]  (Sampling)
+Chain 1: 
+Chain 1:  Elapsed Time: 0.015 seconds (Warm-up)
+Chain 1:                0.013 seconds (Sampling)
+Chain 1:                0.028 seconds (Total)
+Chain 1: 
+
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 2).
+Chain 2: 
+Chain 2: Gradient evaluation took 1e-06 seconds
+Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 0.01 seconds.
+Chain 2: Adjust your expectations accordingly!
+Chain 2: 
+Chain 2: 
+Chain 2: Iteration:    1 / 4000 [  0%]  (Warmup)
+Chain 2: Iteration:  400 / 4000 [ 10%]  (Warmup)
+Chain 2: Iteration:  800 / 4000 [ 20%]  (Warmup)
+Chain 2: Iteration: 1200 / 4000 [ 30%]  (Warmup)
+Chain 2: Iteration: 1600 / 4000 [ 40%]  (Warmup)
+Chain 2: Iteration: 2000 / 4000 [ 50%]  (Warmup)
+Chain 2: Iteration: 2001 / 4000 [ 50%]  (Sampling)
+Chain 2: Iteration: 2400 / 4000 [ 60%]  (Sampling)
+Chain 2: Iteration: 2800 / 4000 [ 70%]  (Sampling)
+Chain 2: Iteration: 3200 / 4000 [ 80%]  (Sampling)
+Chain 2: Iteration: 3600 / 4000 [ 90%]  (Sampling)
+Chain 2: Iteration: 4000 / 4000 [100%]  (Sampling)
+Chain 2: 
+Chain 2:  Elapsed Time: 0.014 seconds (Warm-up)
+Chain 2:                0.016 seconds (Sampling)
+Chain 2:                0.03 seconds (Total)
+Chain 2: 
+
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 3).
+Chain 3: 
+Chain 3: Gradient evaluation took 1e-06 seconds
+Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 0.01 seconds.
+Chain 3: Adjust your expectations accordingly!
+Chain 3: 
+Chain 3: 
+Chain 3: Iteration:    1 / 4000 [  0%]  (Warmup)
+Chain 3: Iteration:  400 / 4000 [ 10%]  (Warmup)
+Chain 3: Iteration:  800 / 4000 [ 20%]  (Warmup)
+Chain 3: Iteration: 1200 / 4000 [ 30%]  (Warmup)
+Chain 3: Iteration: 1600 / 4000 [ 40%]  (Warmup)
+Chain 3: Iteration: 2000 / 4000 [ 50%]  (Warmup)
+Chain 3: Iteration: 2001 / 4000 [ 50%]  (Sampling)
+Chain 3: Iteration: 2400 / 4000 [ 60%]  (Sampling)
+Chain 3: Iteration: 2800 / 4000 [ 70%]  (Sampling)
+Chain 3: Iteration: 3200 / 4000 [ 80%]  (Sampling)
+Chain 3: Iteration: 3600 / 4000 [ 90%]  (Sampling)
+Chain 3: Iteration: 4000 / 4000 [100%]  (Sampling)
+Chain 3: 
+Chain 3:  Elapsed Time: 0.016 seconds (Warm-up)
+Chain 3:                0.014 seconds (Sampling)
+Chain 3:                0.03 seconds (Total)
+Chain 3: 
+
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 4).
+Chain 4: 
+Chain 4: Gradient evaluation took 1e-06 seconds
+Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 0.01 seconds.
+Chain 4: Adjust your expectations accordingly!
+Chain 4: 
+Chain 4: 
+Chain 4: Iteration:    1 / 4000 [  0%]  (Warmup)
+Chain 4: Iteration:  400 / 4000 [ 10%]  (Warmup)
+Chain 4: Iteration:  800 / 4000 [ 20%]  (Warmup)
+Chain 4: Iteration: 1200 / 4000 [ 30%]  (Warmup)
+Chain 4: Iteration: 1600 / 4000 [ 40%]  (Warmup)
+Chain 4: Iteration: 2000 / 4000 [ 50%]  (Warmup)
+Chain 4: Iteration: 2001 / 4000 [ 50%]  (Sampling)
+Chain 4: Iteration: 2400 / 4000 [ 60%]  (Sampling)
+Chain 4: Iteration: 2800 / 4000 [ 70%]  (Sampling)
+Chain 4: Iteration: 3200 / 4000 [ 80%]  (Sampling)
+Chain 4: Iteration: 3600 / 4000 [ 90%]  (Sampling)
+Chain 4: Iteration: 4000 / 4000 [100%]  (Sampling)
+Chain 4: 
+Chain 4:  Elapsed Time: 0.014 seconds (Warm-up)
+Chain 4:                0.013 seconds (Sampling)
+Chain 4:                0.027 seconds (Total)
+Chain 4: </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># View summary of the model fitting</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Inference for Stan model: anon_model.
+4 chains, each with iter=4000; warmup=2000; thin=1; 
+post-warmup draws per chain=2000, total post-warmup draws=8000.
+
+        mean se_mean   sd   2.5%    25%    50%    75%  97.5% n_eff Rhat
+alpha   1.01    0.00 0.08   0.86   0.95   1.01   1.06   1.19  4787    1
+beta   20.76    0.08 6.45   9.18  16.22  20.42  24.95  34.27  5950    1
+lp__  -40.63    0.02 1.12 -43.52 -41.04 -40.29 -39.84 -39.57  2672    1
+
+Samples were drawn using NUTS(diag_e) at Tue Jan 28 23:47:11 2025.
+For each parameter, n_eff is a crude measure of effective sample size,
+and Rhat is the potential scale reduction factor on split chains (at 
+convergence, Rhat=1).</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract posterior samples of alpha and beta</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>posterior_samples <span class="ot">&lt;-</span> <span class="fu">extract</span>(fit)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Predict for 2028 Olympics (CHN)</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>future_years <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Year =</span> <span class="dv">2028</span>)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>future_lambda_log <span class="ot">&lt;-</span> <span class="fu">predict</span>(ols_model, <span class="at">newdata =</span> future_years)</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Ensure future_residuals_arma is numeric and extract the forecast values</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>future_residuals_arma <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">predict</span>(arma_model, <span class="at">n.ahead =</span> <span class="dv">1</span>)<span class="sc">$</span>pred)</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Now we can safely add the values</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">is.numeric</span>(future_lambda_log) <span class="sc">&amp;&amp;</span> <span class="fu">is.numeric</span>(future_residuals_arma)) {</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>  future_lambda <span class="ot">&lt;-</span> <span class="fu">exp</span>(future_lambda_log <span class="sc">+</span> future_residuals_arma)</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stop</span>(<span class="st">"The predicted values are not numeric."</span>)</span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Use posterior samples to generate predictions for the 2028 total medals count</span></span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>alpha_sample <span class="ot">&lt;-</span> posterior_samples<span class="sc">$</span>alpha</span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>beta_sample <span class="ot">&lt;-</span> posterior_samples<span class="sc">$</span>beta</span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>future_medals_samples <span class="ot">&lt;-</span> <span class="fu">rnbinom</span>(<span class="fu">length</span>(alpha_sample), <span class="at">size =</span> alpha_sample, <span class="at">mu =</span> future_lambda)</span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the prediction for the 2028 total medals count (mean of posterior samples)</span></span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a>predicted_medals <span class="ot">&lt;-</span> <span class="fu">mean</span>(future_medals_samples)</span>
+<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Output the predicted medals</span></span>
+<span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a>predicted_medals</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 119.6011</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check pairs plot for sampling problems</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_pairs</span>(fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="MCM2025code_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load necessary libraries for visualization</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a dataframe with the predicted medal samples</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>predicted_medals_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">predicted_medals_samples =</span> future_medals_samples)</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the visualization (Histogram with density curve)</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(predicted_medals_df, <span class="fu">aes</span>(<span class="at">x =</span> predicted_medals_samples)) <span class="sc">+</span></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">1</span>, <span class="at">fill =</span> <span class="st">"lightblue"</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="fu">aes</span>(<span class="at">y =</span> ..density..), <span class="at">fill =</span> <span class="st">"red"</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Predicted Number of Medals for CHINA at the 2028 Olympics"</span>,</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Predicted Medals"</span>,</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Density"</span>) <span class="sc">+</span></span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">16</span>),</span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>),</span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>)</span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: The dot-dot notation (`..density..`) was deprecated in ggplot2 3.4.0.
+ℹ Please use `after_stat(density)` instead.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="MCM2025code_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>4.2 Dirichlet Distribution</li>
+</ul>
+<p>4.2.1 Description of Dirichlet distribution</p>
+<ol type="1">
+<li>Modeling based on the scale of existing medals: For each country <span class="math inline">\(i\)</span>, we modeled the proportion of gold, silver and bronze medals it won in different events: <span class="math display">\[
+p_i=\operatorname{Dirichlet}\left(\alpha_i\right)
+\]</span></li>
+</ol>
+<p>Where <span class="math inline">\(p_i=\left(p_{i 1}, p_{i 2}, p_{i 3}\right)\)</span> represents the proportion of gold, silver and bronze medals won by a country’s <span class="math inline">\(i\)</span> in different events, and <span class="math inline">\(\alpha_i\)</span> is used as the hyperparameter of Dirichlet distribution to reflect the contribution of different sports to the total number of medals of the country. 2. The number of medals in each event:Once the percentage and total number of medals for each country is obtained, we calculate the specific number of medals for each country in the gold, silver and bronze events using the following formula: <span class="math display">\[
+y_{i j}=p_{i j} \cdot y_i
+\]</span></p>
+<p>Where <span class="math inline">\(y_{i j}\)</span> represents the number of medals won by the country <span class="math inline">\(i\)</span> in the event <span class="math inline">\(j\)</span> (gold, silver or bronze), <span class="math inline">\(p_{i j}\)</span> is the proportion of medals obtained by the Dirichlet distribution, and <span class="math inline">\(y_i\)</span> represents the total number of medals won by the country <span class="math inline">\(i\)</span>. 4.2.2 Prior Distribution - Dirichlet distribution hyperparameter Settings : <span class="math inline">\(\alpha_{i j} \sim \operatorname{Gamma}(1,1)\)</span>, representing a prior distribution of the proportion of medals for each country on the item <span class="math inline">\(j\)</span>. Team # 2509384 Page 11 of 26 - Time effect : For autoregressive coefficients and moving average coefficients, assume that their priors are normally distributed: <span class="math display">\[
+\alpha_i \sim \mathcal{N}(0,10), \quad \beta \sim \mathcal{N}(0,1)
+\]</span> - Discrete parameter of negative binomial distribution : <span class="math inline">\(\phi \sim \operatorname{Gamma}(1,1)\)</span>.</p>
+</section>
+</section>
+<section id="k-means-model" class="level2">
+<h2 class="anchored" data-anchor-id="k-means-model">K-Means++ Model</h2>
+<p>In the upcoming Olympic Games, it is expected that several countries will win their first medals. To estimate this prediction, we used the K-means clustering method to predict which countries, that have never won a medal before, are most likely to win their first medal.</p>
+<p>5.1 K-means Clustering Steps</p>
+<p>The K-means clustering algorithm follows these steps: 1. Choosing the <span class="math inline">\(K\)</span> value: We determine how many clusters the data should be divided into, typically using methods like the elbow rule.</p>
+<ol start="2" type="1">
+<li>Calculating distances: For each country, we calculate its position in the feature space and assign it to the nearest cluster based on its distance from the cluster center.</li>
+<li>Updating the cluster centers: We recalculate the cluster center based on the data points in the cluster</li>
+<li>Iterative optimization: Repeat steps 2 and 3 until the cluster centers converge or change very little.</li>
+</ol>
+<p>The mathematical formula for calculating the distance between a data point and the cluster center is as follows: <span class="math display">\[
+d\left(x_i, \mu_k\right)=\sqrt{\sum_{j=1}^n\left(x_{i j}-\mu_{k j}\right)^2}
+\]</span> where: - <span class="math inline">\(x_i\)</span> is the data point, - <span class="math inline">\(\mu_k\)</span> is the cluster center, - <span class="math inline">\(n\)</span> is the number of features in the data.</p>
+<p>Through this process, K-means can group countries based on their historical medal data and other relevant factors, helping to identify those with significant medal-winning potential in future Olympic Games.</p>
+<ul>
+<li><p>Credibility Score and Prediction Probability</p></li>
+<li><p>Credibility Score: Each country obtains a Credibility Score through analysis of clustering and capability data, with higher scores indicating a greater likelihood of winning medals. We can base predictions for first-time medals on the Credibility Score.</p></li>
+<li><p>Probability Calculation: For countries with higher Credibility Scores, we can define a threshold based on this score.</p></li>
+<li><p>Probability Distribution: Through the probability distribution, we can quantify these predictions. For example: <span class="math display">\[
+P(\text { Medal })=\frac{\text { Credibility Score }}{\text { Maximum Credibility Score }}
+\]</span> where <span class="math inline">\(P\)</span> (Medal) represents the probability of a country winning its first medal, and the Credibility Score is normalized by the highest Credibility Score.</p></li>
+</ul>
+<p>The prediction probabilities for each country’s likelihood of winning its first medal in the next Olympic Games are presented in the table below:</p>
+</section>
+<section id="use-sa-solving-target-function-of-the-improved-ratio-of-medals-per-year-with-penalized-dynamic-function-participating-in" class="level2">
+<h2 class="anchored" data-anchor-id="use-sa-solving-target-function-of-the-improved-ratio-of-medals-per-year-with-penalized-dynamic-function-participating-in">Use SA solving target function of the improved ratio of medals per year with penalized dynamic function participating in</h2>
+<p>In order to find out which projects in various countries need to hire “great coach” to help improve their performance, we established a Simulated Annealing(SA) algorithm to solve it.</p>
+<section id="here-maybe-it-is-imapproapriate-to-weight-each-independent-variable-using-this-correlation-rule但是我不知道咋办了" class="level3">
+<h3 class="anchored" data-anchor-id="here-maybe-it-is-imapproapriate-to-weight-each-independent-variable-using-this-correlation-rule但是我不知道咋办了">??Here, maybe it is imapproapriate to weight each independent variable using this correlation rule但是我不知道咋办了</h3>
+<p>We set up a formula to calculate the correlation. Based on the independent variables we presented in 7.1 section, we multiply them by different weights. For the quantified ability coefficient, we multiply it by the correlation between the medals won in two Olympic Games. For hosts or not, we multiplied their correlation by the difference in the number of medals between each of the last ten Olympic Games. For the weight of whether to use the coach, we are constructed by 1 minus the weight of the above two coefficients.</p>
+<p><span class="math inline">\(\sum_{i=1}^{n} (\text{Ability}_i \cdot w_i + \text{HostCountry}_i\cdot w_2 + (1 - w_1 - w_2) \cdot  x_i)\)</span></p>
+<p><span class="math inline">\(\alpha \cdot \max\left(0, \sum_{j=1}^{n} x_i - 5\right)\)</span></p>
+<p>–&gt; <span class="math inline">\(\sum_{i=1}^{n} (\text{Ability}_i \cdot w_i + \text{HostCountry}_i\cdot w_2 + (1 - w_1 - w_2) \cdot  x_i) - \alpha \cdot \max\left(0, \sum_{j=1}^{n} x_i - 5\right)\)</span></p>
+<p>Then we use 模拟退火解决这个</p>
+<p>每个国家最多5个项目教练效应，模拟退火告诉我们那些<span class="math inline">\(x_i\)</span>是1然后知道哪些项目请教练</p>
+<ul>
+<li>result</li>
+</ul>
+<p>The medal increment was calculated using the simulated annealing model. Results show that the “celebrity coach effect” significantly boosts medals. Specifically, the United States sees the largest increase, especially in ice hockey and football, while Japan’s increment is 4, with a smaller effect due to its strong foundation in sports like gymnastics. Belarus has a modest increase of 2, as the coach effect is limited by a weaker foundation in these sports.</p>
+</section>
+</section>
+<section id="lasso-for-choosing-the-most-important-programs-for-each-country-但是如果按国家来看数据量不够啊" class="level2">
+<h2 class="anchored" data-anchor-id="lasso-for-choosing-the-most-important-programs-for-each-country-但是如果按国家来看数据量不够啊">Lasso for choosing the most important programs for each country 但是如果按国家来看数据量不够啊？？</h2>
+<p><span class="math display">\[\hat{\beta} = \text{argmin} \left( \sum_{i=1}^{n} \left( y_i - \beta_0 - \beta_1 x_1 - \sum_{j=2}^{n} \beta_j x_j - \sum_{j=2}^{n} \beta_j z_j - \sum_{j=2}^{n} \beta_{j+n} (x_j \times z_j) \right)^2 + \lambda \sum_{j=1}^{n} |\beta_j| \right)\]</span> <span class="math inline">\(x_1\)</span> is Host(0,1)</p>
+<p><span class="math inline">\(X_j\)</span> is ability(medals/all medals)</p>
+<p><span class="math inline">\(Z_j\)</span> is chance(participanting program/all programs)</p>
+<p>The j from 2 to n means the index of each program.</p>
+<p>After LASSO, we get penalized model which shirinkage some unimportant variables.</p>
+</section>
+<section id="sensitive-analysis-of-bayesian-composite-model" class="level2">
+<h2 class="anchored" data-anchor-id="sensitive-analysis-of-bayesian-composite-model">Sensitive analysis of Bayesian composite model</h2>
+<p><img src="images/clipboard-3424991804.png" class="img-fluid"></p>
+</section>
+<section id="一些处理数据的技巧希望下次掌握熟练一点" class="level2">
+<h2 class="anchored" data-anchor-id="一些处理数据的技巧希望下次掌握熟练一点">一些处理数据的技巧–希望下次掌握熟练一点</h2>
+<section id="数据预处理" class="level3">
+<h3 class="anchored" data-anchor-id="数据预处理">数据预处理</h3>
+<p>当年某项sport某国的能力用medalpercetage表示 noc表示</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 加载必需的库</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 读取数据</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 计算每个 NOC, Year 和 Sport 组合的奖项数量</span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>medal_counts <span class="ot">&lt;-</span> athletes_data <span class="sc">%&gt;%</span></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(NOC, Year, Sport, Medal) <span class="sc">%&gt;%</span></span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Medal_Count =</span> <span class="fu">n</span>(), <span class="at">.groups =</span> <span class="st">'drop'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">spread</span>(<span class="at">key =</span> Medal, <span class="at">value =</span> Medal_Count, <span class="at">fill =</span> <span class="dv">0</span>)  <span class="co"># 展开 Medal 列为各奖项类型</span></span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 计算每个 Year 和 Sport 组合的总行数</span></span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a>total_counts <span class="ot">&lt;-</span> athletes_data <span class="sc">%&gt;%</span></span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Year, Sport) <span class="sc">%&gt;%</span></span>
+<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Total_Count =</span> <span class="fu">n</span>(), <span class="at">.groups =</span> <span class="st">'drop'</span>)</span>
+<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a><span class="co"># 将 medal_counts 和 total_counts 合并</span></span>
+<span id="cb26-21"><a href="#cb26-21" aria-hidden="true" tabindex="-1"></a>medal_with_total <span class="ot">&lt;-</span> medal_counts <span class="sc">%&gt;%</span></span>
+<span id="cb26-22"><a href="#cb26-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(total_counts, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"Year"</span>, <span class="st">"Sport"</span>))</span>
+<span id="cb26-23"><a href="#cb26-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-24"><a href="#cb26-24" aria-hidden="true" tabindex="-1"></a><span class="co"># 计算金、银、铜奖总数占总行数的比例</span></span>
+<span id="cb26-25"><a href="#cb26-25" aria-hidden="true" tabindex="-1"></a>medal_with_total <span class="ot">&lt;-</span> medal_with_total <span class="sc">%&gt;%</span></span>
+<span id="cb26-26"><a href="#cb26-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Total_Medals =</span> Gold <span class="sc">+</span> Silver <span class="sc">+</span> Bronze,  <span class="co"># 包括 No medal 作为奖项</span></span>
+<span id="cb26-27"><a href="#cb26-27" aria-hidden="true" tabindex="-1"></a>         <span class="at">Medal_Percentage =</span> Total_Medals <span class="sc">/</span> Total_Count)</span>
+<span id="cb26-28"><a href="#cb26-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-29"><a href="#cb26-29" aria-hidden="true" tabindex="-1"></a><span class="co"># 保留原始数据中的其他列并与奖项统计信息进行连接</span></span>
+<span id="cb26-30"><a href="#cb26-30" aria-hidden="true" tabindex="-1"></a>final_data <span class="ot">&lt;-</span> athletes_data <span class="sc">%&gt;%</span></span>
+<span id="cb26-31"><a href="#cb26-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(medal_with_total, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"NOC"</span>, <span class="st">"Year"</span>, <span class="st">"Sport"</span>))</span>
+<span id="cb26-32"><a href="#cb26-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-33"><a href="#cb26-33" aria-hidden="true" tabindex="-1"></a><span class="co"># 保存结果</span></span>
+<span id="cb26-34"><a href="#cb26-34" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(final_data, <span class="st">"aFina0.csv"</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb26-35"><a href="#cb26-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-36"><a href="#cb26-36" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看前几行结果</span></span>
+<span id="cb26-37"><a href="#cb26-37" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(final_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="noc抓怒汉" class="level3">
+<h3 class="anchored" data-anchor-id="noc抓怒汉">noc抓怒汉</h3>
+<p>如果文件summerOly_medal_counts的Team列的每一行名在文件aFina0的同行有对应的NOC那么把这个文件的Team名变成NOC，如果没有对应的删除这个文件的一整行数据，生成新数据，其余列不变</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 读取CSV文件</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>summerOly_medal_counts <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"/Users/luyu/Desktop/MCM2025/new_summerOly_medal_counts_with_Host.csv"</span>, <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>aFina0 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"aFina0.csv"</span>, <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 找到summerOly_medal_counts中Team列在aFina0的Team列中有对应值的行</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>matched_rows <span class="ot">&lt;-</span> summerOly_medal_counts<span class="sc">$</span>Team <span class="sc">%in%</span> aFina0<span class="sc">$</span>Team</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 将匹配的行的Team列替换为对应的NOC</span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>summerOly_medal_counts<span class="sc">$</span>Team[matched_rows] <span class="ot">&lt;-</span> aFina0<span class="sc">$</span>NOC[<span class="fu">match</span>(summerOly_medal_counts<span class="sc">$</span>Team[matched_rows], aFina0<span class="sc">$</span>Team)]</span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 删除没有匹配的行</span></span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>summerOly_medal_counts <span class="ot">&lt;-</span> summerOly_medal_counts[matched_rows, ]</span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 保存新的数据到CSV文件</span></span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(summerOly_medal_counts, <span class="st">"new_summerOly_medal_counts.csv"</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="唯一标识组是noc-和year-统计参加每种sport的数量-合成一个新的csv-每个sport弄成单独一列数值是noc与year这行参加的数量" class="level3">
+<h3 class="anchored" data-anchor-id="唯一标识组是noc-和year-统计参加每种sport的数量-合成一个新的csv-每个sport弄成单独一列数值是noc与year这行参加的数量">唯一标识组是Noc 和Year 统计参加每种Sport的数量 合成一个新的csv 每个Sport弄成单独一列数值是Noc与Year这行参加的数量</h3>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load required library</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the data</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>data1 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"aFina0.csv"</span>)</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1: Group by NOC and Year, and count the number of occurrences for each Sport</span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>sport_count <span class="ot">&lt;-</span> data1 <span class="sc">%&gt;%</span></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(NOC, Year, Sport) <span class="sc">%&gt;%</span></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Sport_Count =</span> <span class="fu">n</span>(), <span class="at">.groups =</span> <span class="st">'drop'</span>)</span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2: Spread the data so that each Sport is a column</span></span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>sport_count_spread <span class="ot">&lt;-</span> sport_count <span class="sc">%&gt;%</span></span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">spread</span>(<span class="at">key =</span> Sport, <span class="at">value =</span> Sport_Count, <span class="at">fill =</span> <span class="dv">0</span>)</span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 3: Save the result to a new CSV file</span></span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(sport_count_spread, <span class="st">"sport_count_by_NOC_Year.csv"</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Optionally, view the result</span></span>
+<span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(sport_count_spread)</span>
+<span id="cb28-22"><a href="#cb28-22" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="如果noc和year一样把" class="level3">
+<h3 class="anchored" data-anchor-id="如果noc和year一样把">如果NOC和Year一样，把</h3>
+</section>
+</section>
+<section id="section" class="level1">
+<h1></h1>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 读取CSV文件</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>summerOly_medal_counts <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"summerOly_medal_counts.csv"</span>, <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>merged_data_with_allTotal <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"merged_data_with_allTotal.csv"</span>, <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 在summerOly_medal_counts中添加一列Host，初始值为NA</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>summerOly_medal_counts<span class="sc">$</span>Host <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 遍历summerOly_medal_counts的每一行</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(summerOly_medal_counts)) {</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 找到merged_data_with_allTotal中Year和Team匹配的行</span></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>  matched_row <span class="ot">&lt;-</span> merged_data_with_allTotal[</span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>    merged_data_with_allTotal<span class="sc">$</span>Year <span class="sc">==</span> summerOly_medal_counts<span class="sc">$</span>Year[i] <span class="sc">&amp;</span></span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>    merged_data_with_allTotal<span class="sc">$</span>Team <span class="sc">==</span> summerOly_medal_counts<span class="sc">$</span>Team[i], </span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Host"</span></span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>  ]</span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 如果找到匹配的行，将Host值赋给summerOly_medal_counts的Host列</span></span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">length</span>(matched_row) <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a>    summerOly_medal_counts<span class="sc">$</span>Host[i] <span class="ot">&lt;-</span> matched_row</span>
+<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb29-22"><a href="#cb29-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-23"><a href="#cb29-23" aria-hidden="true" tabindex="-1"></a><span class="co"># 保存新的数据到CSV文件</span></span>
+<span id="cb29-24"><a href="#cb29-24" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(summerOly_medal_counts, <span class="st">"new_summerOly_medal_counts_with_Host.csv"</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 读取CSV文件</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>data3 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"/Users/luyu/Desktop/Book1.csv"</span>, <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>data4 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"new_summerOly_medal_counts.csv"</span>, <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 使用merge函数按Year和NOC进行合并，选择外连接（all.x = TRUE）以保留data3的所有行</span></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>merged_data <span class="ot">&lt;-</span> <span class="fu">merge</span>(data3, data4[, <span class="fu">c</span>(<span class="st">"NOC"</span>, <span class="st">"Year"</span>, <span class="st">"Total"</span>, <span class="st">"Host"</span>)], <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"Year"</span>, <span class="st">"NOC"</span>), <span class="at">all.x =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 保存新的数据到CSV文件</span></span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(merged_data, <span class="st">"FINAL1.csv"</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>r代码 /Users/luyu/Desktop/Book1.csv中 如果NOC，Year和Sport都相同，只保留一个</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 加载dplyr包</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 读取CSV文件</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"/Users/luyu/Desktop/Book1.csv"</span>, <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 删除重复行，基于NOC、Year和Sport列</span></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>unique_data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(NOC, Year, Sport, <span class="at">.keep_all =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 保存新的数据到CSV文件</span></span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(unique_data, <span class="st">"/Users/luyu/Desktop/MCM2025/Book1_unique.csv"</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="host-total和-percentage合并" class="level3">
+<h3 class="anchored" data-anchor-id="host-total和-percentage合并">host total和 percentage合并</h3>
+<p>NOC Total Year Host读取</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 加载必要的库</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 读取nocability和sport_count数据</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>nocability <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"nocability.csv"</span>)</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>sport_count <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"sport_count.csv"</span>)</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 将sport_count的列名中的空格替换为点</span></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(sport_count) <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">" "</span>, <span class="st">"."</span>, <span class="fu">colnames</span>(sport_count))</span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 确保nocability中的列名也符合相同的规则，去除空格并转换为点</span></span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>nocability<span class="sc">$</span>Sport <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">" "</span>, <span class="st">"."</span>, nocability<span class="sc">$</span>Sport)</span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看列名和数据类型，确认一致</span></span>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">names</span>(sport_count))  <span class="co"># 查看sport_count列名</span></span>
+<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">names</span>(nocability))   <span class="co"># 查看nocability列名</span></span>
+<span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">head</span>(sport_count))   <span class="co"># 查看sport_count的数据</span></span>
+<span id="cb32-18"><a href="#cb32-18" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">head</span>(nocability))    <span class="co"># 查看nocability的数据</span></span>
+<span id="cb32-19"><a href="#cb32-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-20"><a href="#cb32-20" aria-hidden="true" tabindex="-1"></a><span class="co"># 提取nocability中的所有Sport列的唯一值</span></span>
+<span id="cb32-21"><a href="#cb32-21" aria-hidden="true" tabindex="-1"></a>nocability_sports <span class="ot">&lt;-</span> <span class="fu">unique</span>(nocability<span class="sc">$</span>Sport)</span>
+<span id="cb32-22"><a href="#cb32-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-23"><a href="#cb32-23" aria-hidden="true" tabindex="-1"></a><span class="co"># 确保sport_count中的列名与nocability中的Sport列一致</span></span>
+<span id="cb32-24"><a href="#cb32-24" aria-hidden="true" tabindex="-1"></a>matching_sports <span class="ot">&lt;-</span> <span class="fu">colnames</span>(sport_count)[<span class="dv">3</span><span class="sc">:</span><span class="fu">ncol</span>(sport_count)] <span class="sc">%in%</span> nocability_sports</span>
+<span id="cb32-25"><a href="#cb32-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-26"><a href="#cb32-26" aria-hidden="true" tabindex="-1"></a><span class="co"># 打印匹配的结果，检查是否所有列名都能在nocability中找到</span></span>
+<span id="cb32-27"><a href="#cb32-27" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(matching_sports)</span>
+<span id="cb32-28"><a href="#cb32-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-29"><a href="#cb32-29" aria-hidden="true" tabindex="-1"></a><span class="co"># 如果列名与nocability中的Sport列一致，则继续计算，否则报告不一致的列名</span></span>
+<span id="cb32-30"><a href="#cb32-30" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">all</span>(matching_sports)) {</span>
+<span id="cb32-31"><a href="#cb32-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">"列名一致，可以进行比较"</span>)</span>
+<span id="cb32-32"><a href="#cb32-32" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb32-33"><a href="#cb32-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">"列名存在不一致，无法进行比较"</span>)</span>
+<span id="cb32-34"><a href="#cb32-34" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb32-35"><a href="#cb32-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-36"><a href="#cb32-36" aria-hidden="true" tabindex="-1"></a><span class="co"># 遍历nocability的每一行，更新sport_count</span></span>
+<span id="cb32-37"><a href="#cb32-37" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(nocability)) {</span>
+<span id="cb32-38"><a href="#cb32-38" aria-hidden="true" tabindex="-1"></a>  year <span class="ot">&lt;-</span> nocability<span class="sc">$</span>Year[i]  <span class="co"># 获取当前年份</span></span>
+<span id="cb32-39"><a href="#cb32-39" aria-hidden="true" tabindex="-1"></a>  noc <span class="ot">&lt;-</span> nocability<span class="sc">$</span>NOC[i]    <span class="co"># 获取当前NOC</span></span>
+<span id="cb32-40"><a href="#cb32-40" aria-hidden="true" tabindex="-1"></a>  sport <span class="ot">&lt;-</span> nocability<span class="sc">$</span>Sport[i]  <span class="co"># 获取当前运动名称</span></span>
+<span id="cb32-41"><a href="#cb32-41" aria-hidden="true" tabindex="-1"></a>  medal_percentage <span class="ot">&lt;-</span> nocability<span class="sc">$</span>Medal_Percentage[i]  <span class="co"># 获取当前运动的奖牌百分比</span></span>
+<span id="cb32-42"><a href="#cb32-42" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb32-43"><a href="#cb32-43" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 在sport_count中查找对应年份和NOC的行</span></span>
+<span id="cb32-44"><a href="#cb32-44" aria-hidden="true" tabindex="-1"></a>  matching_rows <span class="ot">&lt;-</span> <span class="fu">which</span>(sport_count<span class="sc">$</span>Year <span class="sc">==</span> year <span class="sc">&amp;</span> sport_count<span class="sc">$</span>NOC <span class="sc">==</span> noc)</span>
+<span id="cb32-45"><a href="#cb32-45" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb32-46"><a href="#cb32-46" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 如果找到匹配的行，并且当前sport列名在sport_count的列名中，乘上Medal_Percentage值</span></span>
+<span id="cb32-47"><a href="#cb32-47" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">length</span>(matching_rows) <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">&amp;&amp;</span> sport <span class="sc">%in%</span> <span class="fu">names</span>(sport_count)) {</span>
+<span id="cb32-48"><a href="#cb32-48" aria-hidden="true" tabindex="-1"></a>    sport_count[[sport]][matching_rows] <span class="ot">&lt;-</span> sport_count[[sport]][matching_rows] <span class="sc">*</span> medal_percentage</span>
+<span id="cb32-49"><a href="#cb32-49" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb32-50"><a href="#cb32-50" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb32-51"><a href="#cb32-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-52"><a href="#cb32-52" aria-hidden="true" tabindex="-1"></a><span class="co"># 保存修改后的sport_count数据</span></span>
+<span id="cb32-53"><a href="#cb32-53" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(sport_count, <span class="st">"modified_sport_count.csv"</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb32-54"><a href="#cb32-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-55"><a href="#cb32-55" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看修改后的数据</span></span>
+<span id="cb32-56"><a href="#cb32-56" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(sport_count)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="section-1" class="level1">
+<h1></h1>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 加载dplyr库</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 读取数据</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>data1 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"modified_sport_count.csv"</span>)</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>data2 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"totalhost.csv"</span>)</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 在data1中添加Total和Host列，初始值为NA</span></span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>data1<span class="sc">$</span>Total <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>data1<span class="sc">$</span>Host <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 遍历data2的每一行，匹配NOC和Year，并填充Total和Host</span></span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(data2)) {</span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a>  noc <span class="ot">&lt;-</span> data2<span class="sc">$</span>NOC[i]</span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a>  year <span class="ot">&lt;-</span> data2<span class="sc">$</span>Year[i]</span>
+<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a>  total <span class="ot">&lt;-</span> data2<span class="sc">$</span>Total[i]</span>
+<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a>  host <span class="ot">&lt;-</span> data2<span class="sc">$</span>Host[i]</span>
+<span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb33-19"><a href="#cb33-19" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 找到data1中匹配的行</span></span>
+<span id="cb33-20"><a href="#cb33-20" aria-hidden="true" tabindex="-1"></a>  matching_rows <span class="ot">&lt;-</span> <span class="fu">which</span>(data1<span class="sc">$</span>NOC <span class="sc">==</span> noc <span class="sc">&amp;</span> data1<span class="sc">$</span>Year <span class="sc">==</span> year)</span>
+<span id="cb33-21"><a href="#cb33-21" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb33-22"><a href="#cb33-22" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 如果找到匹配的行，填充Total和Host</span></span>
+<span id="cb33-23"><a href="#cb33-23" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">length</span>(matching_rows) <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb33-24"><a href="#cb33-24" aria-hidden="true" tabindex="-1"></a>    data1<span class="sc">$</span>Total[matching_rows] <span class="ot">&lt;-</span> total</span>
+<span id="cb33-25"><a href="#cb33-25" aria-hidden="true" tabindex="-1"></a>    data1<span class="sc">$</span>Host[matching_rows] <span class="ot">&lt;-</span> host</span>
+<span id="cb33-26"><a href="#cb33-26" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb33-27"><a href="#cb33-27" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb33-28"><a href="#cb33-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-29"><a href="#cb33-29" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看结果</span></span>
+<span id="cb33-30"><a href="#cb33-30" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data1)</span>
+<span id="cb33-31"><a href="#cb33-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-32"><a href="#cb33-32" aria-hidden="true" tabindex="-1"></a><span class="co"># 保存修改后的数据</span></span>
+<span id="cb33-33"><a href="#cb33-33" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(data1, <span class="st">"你好世界.csv"</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>最终删除某年没参赛的国家</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 读取CSV文件</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"你好世界.csv"</span>)</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 删除Total列中有NA值的行</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data[<span class="sc">!</span><span class="fu">is.na</span>(data<span class="sc">$</span>Total), ]</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 将Host列中的NA值替换为0</span></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>Host[<span class="fu">is.na</span>(data<span class="sc">$</span>Host)] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 保存修改后的数据到新的CSV文件</span></span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(data, <span class="st">"完美数据.csv"</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看修改后的数据</span></span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="pie-chart-loop" class="level4">
+<h4 class="anchored" data-anchor-id="pie-chart-loop">pie chart loop</h4>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load necessary libraries</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Assuming your dataset is called 'data'</span></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a> data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"/Users/luyu/Desktop/MCM2025/Book8.csv"</span>)</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Function to create and save pie chart for each Year and NOC combination</span></span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>create_pie_chart <span class="ot">&lt;-</span> <span class="cf">function</span>(year_noc_data, output_dir) {</span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Select the relevant columns (assuming they are the sports columns)</span></span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>  sports_data <span class="ot">&lt;-</span> year_noc_data <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>Year, <span class="sc">-</span>NOC)</span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Summarize by finding the top 3 largest values</span></span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a>  top_3_sports <span class="ot">&lt;-</span> <span class="fu">sort</span>(<span class="fu">colSums</span>(sports_data), <span class="at">decreasing =</span> <span class="cn">TRUE</span>)[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Prepare data for the pie chart</span></span>
+<span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a>  pie_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb35-18"><a href="#cb35-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">sport =</span> <span class="fu">names</span>(top_3_sports),</span>
+<span id="cb35-19"><a href="#cb35-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">value =</span> top_3_sports</span>
+<span id="cb35-20"><a href="#cb35-20" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb35-21"><a href="#cb35-21" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb35-22"><a href="#cb35-22" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Create pie chart</span></span>
+<span id="cb35-23"><a href="#cb35-23" aria-hidden="true" tabindex="-1"></a>  pie_chart <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(pie_data, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> value, <span class="at">fill =</span> sport)) <span class="sc">+</span></span>
+<span id="cb35-24"><a href="#cb35-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">width =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb35-25"><a href="#cb35-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">coord_polar</span>(<span class="at">theta =</span> <span class="st">"y"</span>) <span class="sc">+</span></span>
+<span id="cb35-26"><a href="#cb35-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">title =</span> <span class="fu">paste</span>(<span class="st">"Top 3 Sports for"</span>, year_noc_data<span class="sc">$</span>Year[<span class="dv">1</span>], year_noc_data<span class="sc">$</span>NOC[<span class="dv">1</span>])) <span class="sc">+</span></span>
+<span id="cb35-27"><a href="#cb35-27" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_void</span>() <span class="sc">+</span></span>
+<span id="cb35-28"><a href="#cb35-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.title =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
+<span id="cb35-29"><a href="#cb35-29" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span>
+<span id="cb35-30"><a href="#cb35-30" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb35-31"><a href="#cb35-31" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Save the pie chart as an image file (e.g., PNG)</span></span>
+<span id="cb35-32"><a href="#cb35-32" aria-hidden="true" tabindex="-1"></a>  output_path <span class="ot">&lt;-</span> <span class="fu">file.path</span>(output_dir, <span class="fu">paste</span>(<span class="st">"pie_chart_"</span>, year_noc_data<span class="sc">$</span>Year[<span class="dv">1</span>], <span class="st">"_"</span>, year_noc_data<span class="sc">$</span>NOC[<span class="dv">1</span>], <span class="st">".png"</span>, <span class="at">sep =</span> <span class="st">""</span>))</span>
+<span id="cb35-33"><a href="#cb35-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggsave</span>(output_path, pie_chart)</span>
+<span id="cb35-34"><a href="#cb35-34" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb35-35"><a href="#cb35-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-36"><a href="#cb35-36" aria-hidden="true" tabindex="-1"></a><span class="co"># Example to apply this function to your dataset</span></span>
+<span id="cb35-37"><a href="#cb35-37" aria-hidden="true" tabindex="-1"></a><span class="co"># Here, data is assumed to be a dataframe with 'Year', 'NOC', and sports columns</span></span>
+<span id="cb35-38"><a href="#cb35-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-39"><a href="#cb35-39" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the directory to save the output images</span></span>
+<span id="cb35-40"><a href="#cb35-40" aria-hidden="true" tabindex="-1"></a>output_dir <span class="ot">&lt;-</span> <span class="st">"/Users/luyu/Desktop/MCM2025  # Update with the desired directory</span></span>
+<span id="cb35-41"><a href="#cb35-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-42"><a href="#cb35-42" aria-hidden="true" tabindex="-1"></a><span class="st"># Loop through each unique Year and NOC combination</span></span>
+<span id="cb35-43"><a href="#cb35-43" aria-hidden="true" tabindex="-1"></a><span class="st">for (year in unique(data$Year)) {</span></span>
+<span id="cb35-44"><a href="#cb35-44" aria-hidden="true" tabindex="-1"></a><span class="st">  for (noc in unique(data$NOC)) {</span></span>
+<span id="cb35-45"><a href="#cb35-45" aria-hidden="true" tabindex="-1"></a><span class="st">    specific_data &lt;- data %&gt;% filter(Year == year, NOC == noc)</span></span>
+<span id="cb35-46"><a href="#cb35-46" aria-hidden="true" tabindex="-1"></a><span class="st">    </span></span>
+<span id="cb35-47"><a href="#cb35-47" aria-hidden="true" tabindex="-1"></a><span class="st">    # Create and save pie chart for the specific Year and NOC combination</span></span>
+<span id="cb35-48"><a href="#cb35-48" aria-hidden="true" tabindex="-1"></a><span class="st">    create_pie_chart(specific_data, output_dir)</span></span>
+<span id="cb35-49"><a href="#cb35-49" aria-hidden="true" tabindex="-1"></a><span class="st">  }</span></span>
+<span id="cb35-50"><a href="#cb35-50" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
+<span id="cb35-51"><a href="#cb35-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-52"><a href="#cb35-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-53"><a href="#cb35-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-54"><a href="#cb35-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-55"><a href="#cb35-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-56"><a href="#cb35-56" aria-hidden="true" tabindex="-1"></a><span class="st">```r</span></span>
+<span id="cb35-57"><a href="#cb35-57" aria-hidden="true" tabindex="-1"></a><span class="st"># 加载必要的包</span></span>
+<span id="cb35-58"><a href="#cb35-58" aria-hidden="true" tabindex="-1"></a><span class="st">library(dplyr)</span></span>
+<span id="cb35-59"><a href="#cb35-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-60"><a href="#cb35-60" aria-hidden="true" tabindex="-1"></a><span class="st"># 读取数据</span></span>
+<span id="cb35-61"><a href="#cb35-61" aria-hidden="true" tabindex="-1"></a><span class="st">data &lt;- read.csv("</span>完美数据.csv<span class="st">")</span></span>
+<span id="cb35-62"><a href="#cb35-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-63"><a href="#cb35-63" aria-hidden="true" tabindex="-1"></a><span class="st"># 选择需要的列</span></span>
+<span id="cb35-64"><a href="#cb35-64" aria-hidden="true" tabindex="-1"></a><span class="st">selected_vars &lt;- c("</span>Archery<span class="st">", "</span>Athletics<span class="st">", "</span>Badminton<span class="st">", "</span>Basketball<span class="st">", "</span>Basque.Pelota<span class="st">", "</span>Boxing<span class="st">", </span></span>
+<span id="cb35-65"><a href="#cb35-65" aria-hidden="true" tabindex="-1"></a><span class="st">                   "</span>Breaking<span class="st">", "</span>Canoeing<span class="st">", "</span>Croquet<span class="st">", "</span>Cycling<span class="st">", "</span>Equestrian<span class="st">", "</span>Fencing<span class="st">", "</span>Football<span class="st">",</span></span>
+<span id="cb35-66"><a href="#cb35-66" aria-hidden="true" tabindex="-1"></a><span class="st">                   "</span>Golf<span class="st">", "</span>Gymnastics<span class="st">", "</span>Handball<span class="st">", "</span>Ice.Hockey<span class="st">", "</span>Judo<span class="st">", "</span>Karate<span class="st">", "</span>Lacrosse<span class="st">", </span></span>
+<span id="cb35-67"><a href="#cb35-67" aria-hidden="true" tabindex="-1"></a><span class="st">                   "</span>Modern.Pentathlon<span class="st">", "</span>Polo<span class="st">", "</span>Rowing<span class="st">", "</span>Rugby<span class="st">", "</span>Sailing<span class="st">", "</span>Shooting<span class="st">", "</span>Skateboarding<span class="st">",</span></span>
+<span id="cb35-68"><a href="#cb35-68" aria-hidden="true" tabindex="-1"></a><span class="st">                   "</span>Sport.Climbing<span class="st">", "</span>Surfing<span class="st">", "</span>Table.Tennis<span class="st">", "</span>Taekwondo<span class="st">", "</span>Tennis<span class="st">", "</span>Triathlon<span class="st">", </span></span>
+<span id="cb35-69"><a href="#cb35-69" aria-hidden="true" tabindex="-1"></a><span class="st">                   "</span>Volleyball<span class="st">", "</span>Weightlifting<span class="st">", "</span>Wrestling<span class="st">")</span></span>
+<span id="cb35-70"><a href="#cb35-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-71"><a href="#cb35-71" aria-hidden="true" tabindex="-1"></a><span class="st"># 提取选中的列</span></span>
+<span id="cb35-72"><a href="#cb35-72" aria-hidden="true" tabindex="-1"></a><span class="st">selected_data &lt;- data[, c("</span>NOC<span class="st">", "</span>Year<span class="st">", selected_vars)]</span></span>
+<span id="cb35-73"><a href="#cb35-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-74"><a href="#cb35-74" aria-hidden="true" tabindex="-1"></a><span class="st"># 创建一个空的dataframe来存储结果</span></span>
+<span id="cb35-75"><a href="#cb35-75" aria-hidden="true" tabindex="-1"></a><span class="st">top_5_data &lt;- data.frame()</span></span>
+<span id="cb35-76"><a href="#cb35-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-77"><a href="#cb35-77" aria-hidden="true" tabindex="-1"></a><span class="st"># 对每个变量提取前5个最大值对应的行</span></span>
+<span id="cb35-78"><a href="#cb35-78" aria-hidden="true" tabindex="-1"></a><span class="st">for (var in selected_vars) {</span></span>
+<span id="cb35-79"><a href="#cb35-79" aria-hidden="true" tabindex="-1"></a><span class="st">  top_5_data &lt;- rbind(top_5_data, selected_data %&gt;%</span></span>
+<span id="cb35-80"><a href="#cb35-80" aria-hidden="true" tabindex="-1"></a><span class="st">                        arrange(desc(!!sym(var))) %&gt;%</span></span>
+<span id="cb35-81"><a href="#cb35-81" aria-hidden="true" tabindex="-1"></a><span class="st">                        slice(1:5) %&gt;%</span></span>
+<span id="cb35-82"><a href="#cb35-82" aria-hidden="true" tabindex="-1"></a><span class="st">                        select(NOC, Year, !!sym(var)))</span></span>
+<span id="cb35-83"><a href="#cb35-83" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
+<span id="cb35-84"><a href="#cb35-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-85"><a href="#cb35-85" aria-hidden="true" tabindex="-1"></a><span class="st"># 保存为新的CSV文件</span></span>
+<span id="cb35-86"><a href="#cb35-86" aria-hidden="true" tabindex="-1"></a><span class="st">write.csv(top_5_data, "</span>Top_5_Values.csv<span class="st">", row.names = FALSE)</span></span>
+<span id="cb35-87"><a href="#cb35-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-88"><a href="#cb35-88" aria-hidden="true" tabindex="-1"></a><span class="st"># 打印结果表格</span></span>
+<span id="cb35-89"><a href="#cb35-89" aria-hidden="true" tabindex="-1"></a><span class="st">print(top_5_data)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
