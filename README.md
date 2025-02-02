@@ -53,3 +53,4 @@ If we only use each country's chance(how many this country participating / all p
 ## Q3
 
 ![](images/clipboard-844327253.png)
+。
