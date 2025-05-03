@@ -1,0 +1,32 @@
+project:
+  type: website
+  output-dir: docs
+  
+website: 
+  title: "Mathematical Modeling 2025"
+  navbar:
+    left:
+      - href: https://yuuuulu.github.io/
+        text: yuuuulu
+      - href: index.qmd
+        text: Homepage
+      - href: MCM2025code.qmd
+        text: Our main work
+      - href: The_Riddle_of_Olympic_Medal_Table__Mathematical_Model_Prediction_and_Multi_factor_Analysis.pdf
+        text: Our essay (pdf version)
+      #- href: mth106.qmd
+      #  text: ODE, PDE, and Fourier Series
+
+
+      
+      #- href: sequence.qmd
+       # text: sequence
+      #- href: Lagrange.qmd
+       # text: lasso and Lagrange method
+      #- href: understand directional derivative deeply.qmd
+        #text: Directional Derivative
+      
+format: 
+  html: 
+    theme: cosmo
+    toc: true

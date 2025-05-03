@@ -132,7 +132,7 @@ library(dplyr)
 library(bayesplot)
 
 # Prepare your dataset (assuming 'data' is your dataframe)
-data <- read.csv("/Users/luyu/Desktop/完美数据.csv")
+data <- read.csv("完美数据.csv")
 
 # Filter out data for CHN (China) only
 chn_data <- subset(data, NOC == "CHN")
@@ -440,7 +440,6 @@ write.csv(sport_count_spread, "sport_count_by_NOC_Year.csv", row.names = FALSE)
 
 # Optionally, view the result
 head(sport_count_spread)
-
 
 ```
 
