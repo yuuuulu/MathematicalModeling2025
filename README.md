@@ -1,6 +1,7 @@
-# MathematicalModeling2025 (See html and pdf for more information)
+# MathematicalModeling2025 (See website https://yuuuulu.github.io/MathematicalModeling2025/ for more information)
 
-MMC competition
+We got "Honorable Mention" in 2025 MMC competition and this repo is used for future reflection of our work.
+
 
 ![](images/clipboard-921872354.png)
 
